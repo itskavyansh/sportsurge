@@ -12,21 +12,21 @@ import { Link } from 'react-router-dom';
 //   215–239 → ankle/foot dominant
 const HOTSPOTS = [
   // TMJ: jaw line, right side — visible in early full-body frames
-  { id: 'hs-tmj',      x: 53, y: 10, frames: [5,  30],  label: 'TMJ',        sub: 'Temporomandibular Joint', joint: 'tmj',      side: 'right' },
+  { id: 'hs-tmj',      x: 52, y: 12, frames: [5,  30],  label: 'TMJ',        sub: 'Temporomandibular Joint', joint: 'tmj',      side: 'right' },
   // Neck: nape/cervical spine — back-view frames, neck centered at top
   { id: 'hs-neck',     x: 51, y: 7,  frames: [80, 130], label: 'Neck',       sub: 'Cervical Spine',          joint: 'neck',     side: 'left'  },
   // Shoulder: top of left deltoid — front view zoom
-  { id: 'hs-shoulder', x: 63, y: 25, frames: [30, 65],  label: 'Shoulder',   sub: 'Glenohumeral Joint',     joint: 'shoulder', side: 'right' },
+  { id: 'hs-shoulder', x: 60, y: 20, frames: [30, 55],  label: 'Shoulder',   sub: 'Glenohumeral Joint',     joint: 'shoulder', side: 'right' },
   // Elbow: left elbow visible in side view
-  { id: 'hs-elbow',    x: 30, y: 45, frames: [155,185], label: 'Elbow',      sub: 'Humeroulnar Joint',      joint: 'elbow',    side: 'left'  },
+  { id: 'hs-elbow',    x: 55, y: 35, frames: [165,185], label: 'Elbow',      sub: 'Humeroulnar Joint',      joint: 'elbow',    side: 'right'  },
   // Wrist: hand/wrist at hip in side view
-  { id: 'hs-wrist',    x: 68, y: 55, frames: [155,195], label: 'Wrist',      sub: 'Radiocarpal Joint',      joint: 'wrist',    side: 'right' },
+  { id: 'hs-wrist',    x: 55, y: 55, frames: [180,195], label: 'Wrist',      sub: 'Radiocarpal Joint',      joint: 'wrist',    side: 'right' },
   // Hip: hip joint visible in side/lower-body frames
   { id: 'hs-hip',      x: 62, y: 35, frames: [185,215], label: 'Hip',        sub: 'Acetabulofemoral Joint', joint: 'hip',      side: 'right' },
   // Knee: raised knee dominant in lower-body frames
-  { id: 'hs-knee',     x: 40, y: 50, frames: [195,225], label: 'Knee',       sub: 'Tibiofemoral Joint',     joint: 'knee',     side: 'left'  },
+  { id: 'hs-knee',     x: 20, y: 30, frames: [195,225], label: 'Knee',       sub: 'Tibiofemoral Joint',     joint: 'knee',     side: 'left'  },
   // Ankle: foot/ankle in final frames
-  { id: 'hs-ankle',    x: 42, y: 78, frames: [215,239], label: 'Ankle',      sub: 'Talocrural Joint',       joint: 'ankle',    side: 'left'  },
+  { id: 'hs-ankle',    x: 35, y: 78, frames: [215,239], label: 'Ankle',      sub: 'Talocrural Joint',       joint: 'ankle',    side: 'right'  },
 ];
 
 export default function HeroCanvas() {
