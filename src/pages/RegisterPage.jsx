@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { ChevronRight, ChevronLeft, CheckCircle, Loader2, User, School, Users } from 'lucide-react';
 
@@ -85,6 +85,30 @@ export default function RegisterPage() {
     setSubmitting(true);
     setSubmitError('');
     try {
+      // ── Duplicate check ──────────────────────────────────────────
+      // Block if a registration with the same mobile number already exists.
+      const mobileSnap = await getDocs(
+        query(collection(db, 'registrations'), where('parentMobile', '==', data.parentMobile))
+      );
+      if (!mobileSnap.empty) {
+        setSubmitError('A registration with this mobile number already exists. Please contact us if you need help.');
+        setSubmitting(false);
+        return;
+      }
+
+      // Also check email if one was provided.
+      if (data.parentEmail.trim()) {
+        const emailSnap = await getDocs(
+          query(collection(db, 'registrations'), where('parentEmail', '==', data.parentEmail.trim()))
+        );
+        if (!emailSnap.empty) {
+          setSubmitError('A registration with this email address already exists. Please contact us if you need help.');
+          setSubmitting(false);
+          return;
+        }
+      }
+      // ────────────────────────────────────────────────────────────
+
       await addDoc(collection(db, 'registrations'), {
         ...data,
         sport: data.sport === 'Other' ? data.otherSport : data.sport,
