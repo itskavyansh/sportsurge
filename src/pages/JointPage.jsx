@@ -208,109 +208,155 @@ export default function JointPage() {
   const [searchParams] = useSearchParams();
   const heroRef = useRef(null);
 
-  // Support both /joint/knee and /joint?joint=knee
   const key = jointId || searchParams.get('joint') || 'tmj';
   const d = DATA[key] || DATA.tmj;
 
   useEffect(() => {
     document.title = d.name + ' Joint Guide — Sport Surge Pro';
     window.scrollTo(0, 0);
-
-    // Entrance animation
     const hero = heroRef.current;
     if (hero) {
       hero.style.opacity = '0';
-      hero.style.transform = 'translateY(20px)';
+      hero.style.transform = 'translateY(24px)';
       requestAnimationFrame(() => {
-        hero.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        hero.style.transition = 'opacity 0.75s ease, transform 0.75s ease';
         hero.style.opacity = '1';
         hero.style.transform = 'translateY(0)';
       });
     }
   }, [d.name]);
 
-  const nameHtml = d.name.includes(' ')
-    ? d.name.replace(/ (\S+)$/, ' <span class="text-[--accent]">$1</span>')
-    : d.name + ' <span class="text-[--accent]">Guide</span>';
+  const injColors = ['#ef4444', '#f97316', '#eab308'];
+  const injLabels = ['High Risk', 'Moderate', 'Common'];
+  const anaColors = ['#3b82f6', '#8b5cf6', '#06b6d4'];
 
   return (
-    <div className="bg-[#050505] min-h-screen">
-      <Link to="/" className="joint-back">Back to Home</Link>
+    <div className="jp-root">
 
-      <div className="joint-hero" ref={heroRef}>
-        <div className="joint-tag w-fit">{d.tag}</div>
-        <h1
-          className="font-[var(--font-display)] text-[clamp(3rem,7vw,6rem)] font-black tracking-tighter leading-none mb-2 text-white"
-          dangerouslySetInnerHTML={{ __html: nameHtml }}
-        />
-        <p className="text-[--text-secondary] text-base mb-10 max-w-[550px] leading-[1.7]">{d.desc}</p>
-        <div className="flex gap-10 flex-wrap">
-          {d.stats.map((s) => (
-            <div key={s.label}>
-              <h3 className="font-[var(--font-display)] text-[2rem] font-black text-[--accent] leading-none">{s.val}</h3>
-              <p className="text-[0.75rem] text-[--text-muted] uppercase tracking-wider mt-1">{s.label}</p>
+      {/* ── TOP NAV ── */}
+      <nav className="jp-topnav">
+        <Link to="/" className="jp-back-btn">← Back to Home</Link>
+        <span className="jp-nav-tag">{d.tag}</span>
+      </nav>
+
+      {/* ── HERO ── */}
+      <header className="jp-hero" ref={heroRef}>
+        <div className="jp-hero-glow" />
+        <div className="jp-hero-inner">
+          <div className="jp-hero-pill">Joint Explorer</div>
+          <h1 className="jp-hero-title">
+            {d.name} <span className="jp-hero-accent">Guide</span>
+          </h1>
+          <p className="jp-hero-desc">{d.desc}</p>
+        </div>
+        <div className="jp-stats-bar">
+          {d.stats.map((s, i) => (
+            <div key={s.label} className="jp-stat">
+              {i > 0 && <div className="jp-stat-sep" />}
+              <span className="jp-stat-val">{s.val}</span>
+              <span className="jp-stat-lbl">{s.label}</span>
             </div>
           ))}
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-[1100px] mx-auto px-[8%] pb-24 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="jcard">
-          <div className="mb-5 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)] pb-3">
-            <Bone size={24} color="var(--accent)" />
-            <h2 className="font-[var(--font-display)] text-[1.3rem] font-bold text-white tracking-tight m-0">Anatomy Overview</h2>
+      {/* ── ANATOMY ── */}
+      <section className="jp-section jp-sec-anatomy">
+        <div className="jp-sec-inner">
+          <div className="jp-sec-hdr">
+            <span className="jp-sec-icon jp-icon-blue"><Bone size={20} /></span>
+            <div>
+              <p className="jp-sec-eye">Structure</p>
+              <h2 className="jp-sec-title">Anatomy Overview</h2>
+            </div>
           </div>
-          <div className="grid grid-cols-3 max-md:grid-cols-2 gap-4">
-            {d.anatomy.map((a) => {
+          <div className="jp-anatomy-grid">
+            {d.anatomy.map((a, i) => {
               const Icon = a.icon;
               return (
-                <div key={a.name} className="anatomy-item flex flex-col items-center">
-                  <div className="mb-3 w-10 h-10 rounded-full bg-[rgba(255,107,0,0.1)] flex items-center justify-center">
-                    <Icon size={18} color="var(--accent)" />
+                <div key={a.name} className="jp-ana-card">
+                  <div className="jp-ana-stripe" style={{ background: anaColors[i % 3] }} />
+                  <div className="jp-ana-icon" style={{ background: anaColors[i % 3] + '20', borderColor: anaColors[i % 3] + '50' }}>
+                    <Icon size={19} color={anaColors[i % 3]} />
                   </div>
-                  <h4 className="text-[0.8rem] font-semibold text-white mb-0.5">{a.name}</h4>
-                  <p className="text-[0.72rem] text-[--text-muted] leading-snug">{a.desc}</p>
+                  <div>
+                    <h3 className="jp-ana-name">{a.name}</h3>
+                    <p className="jp-ana-desc">{a.desc}</p>
+                  </div>
                 </div>
               );
             })}
           </div>
         </div>
+      </section>
 
-        <div className="jcard">
-          <div className="mb-5 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)] pb-3">
-            <AlertTriangle size={24} color="#ffaa00" />
-            <h2 className="font-[var(--font-display)] text-[1.3rem] font-bold text-white tracking-tight m-0">Common Injuries</h2>
+      {/* ── INJURIES ── */}
+      <section className="jp-section jp-sec-injuries">
+        <div className="jp-sec-inner">
+          <div className="jp-sec-hdr">
+            <span className="jp-sec-icon jp-icon-red"><AlertTriangle size={20} /></span>
+            <div>
+              <p className="jp-sec-eye">Risk Factors</p>
+              <h2 className="jp-sec-title">Common Injuries</h2>
+            </div>
           </div>
-          <ul className="injury-list">
+          <div className="jp-inj-list">
             {d.injuries.map((inj, i) => (
-              <li key={inj.name} className="injury-item">
-                <div className="injury-num">{i + 1}</div>
-                <div>
-                  <h4 className="text-[0.875rem] font-semibold text-white mb-1">{inj.name}</h4>
-                  <p className="text-[0.8rem] text-[--text-muted] leading-relaxed">{inj.desc}</p>
+              <div key={inj.name} className="jp-inj-card">
+                <div className="jp-inj-num" style={{ color: injColors[i], borderColor: injColors[i] + '44', background: injColors[i] + '12' }}>
+                  {String(i + 1).padStart(2, '0')}
                 </div>
-              </li>
+                <div className="jp-inj-body">
+                  <h3 className="jp-inj-name">{inj.name}</h3>
+                  <p className="jp-inj-desc">{inj.desc}</p>
+                </div>
+                <div className="jp-inj-badge" style={{ color: injColors[i], background: injColors[i] + '18', borderColor: injColors[i] + '40' }}>
+                  <span className="jp-inj-dot" style={{ background: injColors[i] }} />
+                  {injLabels[i]}
+                </div>
+              </div>
             ))}
-          </ul>
-        </div>
-
-        <div className="jcard md:col-span-2">
-          <div className="mb-5 flex items-center gap-3 border-b border-[rgba(255,255,255,0.06)] pb-3">
-            <HeartPulse size={24} color="#00c864" />
-            <h2 className="font-[var(--font-display)] text-[1.3rem] font-bold text-white tracking-tight m-0">Fixes &amp; Recovery</h2>
           </div>
-          <ul className="fix-list grid grid-cols-1 md:grid-cols-2 gap-4">
+        </div>
+      </section>
+
+      {/* ── RECOVERY ── */}
+      <section className="jp-section jp-sec-recovery">
+        <div className="jp-sec-inner">
+          <div className="jp-sec-hdr">
+            <span className="jp-sec-icon jp-icon-green"><HeartPulse size={20} /></span>
+            <div>
+              <p className="jp-sec-eye">Treatment Protocol</p>
+              <h2 className="jp-sec-title">Fixes &amp; Recovery</h2>
+            </div>
+          </div>
+          <div className="jp-rec-list">
             {d.fixes.map((f, i) => (
-              <li key={i} className="fix-item">
-                <div className="fix-check">
-                  <Check size={14} strokeWidth={3} />
+              <div key={i} className="jp-rec-step">
+                <div className="jp-rec-timeline">
+                  <div className="jp-rec-circle">{i + 1}</div>
+                  {i < d.fixes.length - 1 && <div className="jp-rec-line" />}
                 </div>
-                <p className="text-[0.82rem] text-[--text-secondary] leading-relaxed [&_strong]:text-white" dangerouslySetInnerHTML={{ __html: f }} />
-              </li>
+                <div className="jp-rec-body">
+                  <div className="jp-rec-tick"><Check size={13} strokeWidth={3} /></div>
+                  <p className="jp-rec-text" dangerouslySetInnerHTML={{ __html: f }} />
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA FOOTER ── */}
+      <div className="jp-cta-wrap">
+        <p className="jp-cta-label">Ready to start your recovery?</p>
+        <div className="jp-cta-actions">
+          <Link to="/register" className="jp-cta-primary">Register with Sport Surge →</Link>
+          <Link to="/" className="jp-cta-ghost">← Explore other joints</Link>
         </div>
       </div>
+
     </div>
   );
 }
+
