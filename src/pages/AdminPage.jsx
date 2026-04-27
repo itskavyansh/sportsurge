@@ -26,7 +26,7 @@ export default function AdminPage() {
 function LoginScreen({ pw, setPw, onLogin, error }) {
   const handleKey = (e) => { if (e.key === 'Enter') onLogin(); };
   return (
-    <div className="min-h-screen flex items-center justify-center px-[5%]" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 0%, rgba(25,15,55,0.5) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 10% 100%, rgba(70,25,5,0.3) 0%, transparent 55%), #0b0b0f' }}>
+    <div className="min-h-screen flex items-center justify-center px-[5%]">
       <div className="w-full max-w-[380px]">
         <div className="text-center mb-8">
           <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-[rgba(255,94,0,0.1)] border border-[rgba(255,94,0,0.2)] flex items-center justify-center">
@@ -138,7 +138,7 @@ function Dashboard({ onLogout }) {
   );
 
   return (
-    <div className="min-h-screen px-[3%] py-8" style={{ background: 'radial-gradient(ellipse 80% 50% at 100% 0%, rgba(20,10,50,0.5) 0%, transparent 55%), radial-gradient(ellipse 60% 40% at 0% 100%, rgba(60,20,5,0.28) 0%, transparent 55%), #0b0b0f' }}>
+    <div className="min-h-screen px-[3%] py-8">
       {/* Header */}
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>

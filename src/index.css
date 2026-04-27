@@ -926,678 +926,608 @@
 }
 
 /* ──────────────── JOINT PAGE ──────────────── */
-.joint-hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 8rem 8% 5rem;
-  position: relative;
-  overflow: hidden;
+.jp { min-height:100vh; background:#080809; color:#d4d4d8; }
+
+/* bar */
+.jp-bar { position:sticky; top:0; z-index:100; display:flex; align-items:center; gap:.8rem; padding:.55rem 3%; background:rgba(8,8,9,.88); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid rgba(255,255,255,.06); }
+.jp-bar-back { display:inline-flex; align-items:center; gap:.35rem; color:#888; text-decoration:none; font-size:.78rem; font-weight:600; padding:.35rem .75rem; border-radius:8px; border:1px solid rgba(255,255,255,.08); transition:all .2s; flex-shrink:0; }
+.jp-bar-back:hover { color:var(--accent); border-color:rgba(255,107,0,.3); }
+.jp-bar-nav { display:flex; gap:.25rem; overflow-x:auto; scrollbar-width:none; }
+.jp-bar-nav::-webkit-scrollbar { display:none; }
+.jp-bar-link { padding:.35rem .65rem; border-radius:7px; font-size:.75rem; font-weight:600; color:#666; text-decoration:none; white-space:nowrap; transition:all .2s; border:1px solid transparent; }
+.jp-bar-link:hover { color:#bbb; background:rgba(255,255,255,.04); }
+.jp-bar-link.is-active { color:var(--accent); background:rgba(255,107,0,.1); border-color:rgba(255,107,0,.25); }
+
+/* hero */
+.jp-hero { padding:4.5rem 6% 3rem; max-width:860px; margin:0 auto; }
+.jp-hero-tag { display:inline-block; padding:.25rem .75rem; border:1px solid rgba(255,107,0,.25); border-radius:50px; color:#cc7a30; font-size:.65rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:1.2rem; }
+.jp-hero-title { font-family:var(--font-display); font-size:clamp(2.6rem,5.5vw,4.5rem); font-weight:900; letter-spacing:-1.5px; line-height:1.05; color:#fff; margin:0 0 1rem; }
+.jp-hero-desc { font-size:.95rem; line-height:1.8; color:#999; max-width:620px; margin:0; }
+
+/* stats */
+.jp-stats { display:flex; gap:.8rem; margin-top:2.2rem; flex-wrap:wrap; }
+.jp-stat { padding:1.1rem 1.4rem; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:rgba(255,255,255,.025); min-width:120px; text-align:center; flex:1; transition:border-color .25s; }
+.jp-stat:hover { border-color:rgba(255,107,0,.3); }
+.jp-stat-val { display:block; font-family:var(--font-display); font-size:1.7rem; font-weight:900; color:#fff; line-height:1.1; margin-bottom:.25rem; }
+.jp-stat-label { font-size:.68rem; font-weight:600; color:#666; text-transform:uppercase; letter-spacing:1px; }
+
+/* divider */
+.jp-divider { max-width:860px; margin:0 auto; height:1px; background:linear-gradient(to right,transparent,rgba(255,255,255,.08),transparent); }
+
+/* section */
+.jp-sect { max-width:860px; margin:0 auto; padding:2.5rem 6%; }
+.jp-sect-title { font-family:var(--font-display); font-size:1.15rem; font-weight:800; color:#eee; margin:0 0 1.5rem; display:flex; align-items:center; gap:.6rem; letter-spacing:-.3px; }
+.jp-sect-title svg { color:var(--accent); flex-shrink:0; }
+.jp-sect-title--green svg { color:#22c55e; }
+
+/* anatomy */
+.jp-anatomy-row { display:flex; flex-direction:column; gap:.75rem; }
+.jp-anat { display:flex; gap:1rem; align-items:flex-start; padding:1.1rem 1.3rem; border:1px solid rgba(255,255,255,.07); border-radius:12px; background:rgba(255,255,255,.02); transition:all .25s; }
+.jp-anat:hover { border-color:rgba(255,180,50,.2); background:rgba(255,180,50,.03); }
+.jp-anat-icon { width:40px; height:40px; border-radius:10px; background:rgba(255,160,40,.1); border:1px solid rgba(255,160,40,.18); display:flex; align-items:center; justify-content:center; color:#e8a030; flex-shrink:0; }
+.jp-anat-name { font-size:.88rem; font-weight:700; color:#e4e4e7; margin:0 0 .25rem; }
+.jp-anat-desc { font-size:.8rem; line-height:1.55; color:#888; margin:0; }
+
+/* injuries */
+.jp-injuries { display:flex; flex-direction:column; gap:.65rem; }
+.jp-inj { display:flex; gap:1rem; align-items:flex-start; padding:1.1rem 1.3rem; border:1px solid rgba(255,80,80,.1); border-radius:12px; background:rgba(255,60,60,.025); transition:all .25s; }
+.jp-inj:hover { border-color:rgba(255,80,80,.25); background:rgba(255,60,60,.045); }
+.jp-inj-badge { width:28px; height:28px; border-radius:50%; background:rgba(255,80,80,.15); color:#f87171; display:flex; align-items:center; justify-content:center; font-size:.72rem; font-weight:800; flex-shrink:0; margin-top:.1rem; }
+.jp-inj-name { font-size:.88rem; font-weight:700; color:#e4e4e7; margin:0 0 .3rem; }
+.jp-inj-desc { font-size:.8rem; line-height:1.6; color:#888; margin:0; }
+
+/* recovery */
+.jp-fixes { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.65rem; counter-reset:fix; }
+.jp-fix { padding:1.2rem 1.4rem; border:1px solid rgba(34,197,94,.1); border-radius:12px; background:rgba(34,197,94,.02); transition:all .25s; }
+.jp-fix:hover { border-color:rgba(34,197,94,.25); background:rgba(34,197,94,.04); }
+.jp-fix-head { display:flex; align-items:center; gap:.7rem; margin-bottom:.4rem; }
+.jp-fix-step { padding:.15rem .5rem; border-radius:5px; background:rgba(34,197,94,.12); color:#22c55e; font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; }
+.jp-fix-name { font-size:.88rem; font-weight:700; color:#e4e4e7; margin:0; }
+.jp-fix-desc { font-size:.8rem; line-height:1.6; color:#888; margin:0; padding-left:0; }
+
+/* footer nav */
+.jp-foot { max-width:860px; margin:0 auto; padding:2rem 6% 4rem; border-top:1px solid rgba(255,255,255,.06); }
+.jp-foot-label { font-size:.7rem; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:2px; margin:0 0 1rem; }
+.jp-foot-links { display:flex; flex-wrap:wrap; gap:.45rem; }
+.jp-foot-link { display:inline-flex; align-items:center; gap:.3rem; padding:.4rem .75rem; border:1px solid rgba(255,255,255,.07); border-radius:8px; color:#888; font-size:.78rem; font-weight:600; text-decoration:none; transition:all .2s; }
+.jp-foot-link:hover { color:#fff; border-color:rgba(255,107,0,.3); background:rgba(255,107,0,.06); }
+.jp-foot-link:hover svg { color:var(--accent); }
+
+@media(max-width:768px){
+  .jp-hero { padding:3.5rem 5% 2rem; }
+  .jp-hero-title { font-size:clamp(2rem,8vw,3rem); }
+  .jp-stats { gap:.5rem; }
+  .jp-stat { min-width:90px; padding:.8rem; }
+  .jp-stat-val { font-size:1.3rem; }
+  .jp-sect { padding:2rem 5%; }
 }
 
-.joint-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 60% 60% at 70% 40%, rgba(255, 107, 0, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
 
-.joint-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.25s ease;
-  position: fixed;
-  top: 1.5rem;
-  left: 5%;
+/* ── TOP BAR ── */
+.jp-topbar {
+  position: sticky;
+  top: 0;
   z-index: 100;
-}
-
-.joint-back:hover {
-  color: var(--accent);
-}
-
-.joint-back::before {
-  content: '←';
-  font-size: 1rem;
-}
-
-.joint-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(255, 107, 0, 0.12);
-  border: 1px solid rgba(255, 107, 0, 0.3);
-  border-radius: 50px;
-  padding: 0.3rem 0.9rem;
-  color: var(--accent);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.jcard {
-  background: #0e0e0e;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 18px;
-  padding: 2.5rem;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.jcard:hover {
-  border-color: rgba(255, 107, 0, 0.3);
-  transform: translateY(-3px);
-}
-
-.injury-list {
-  list-style: none;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 1rem;
-}
-
-.injury-item {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  padding: 1rem 1.2rem;
-  background: rgba(255, 107, 0, 0.04);
-  border: 1px solid rgba(255, 107, 0, 0.12);
-  border-radius: 10px;
-  transition: background 0.25s ease;
-}
-
-.injury-item:hover {
-  background: rgba(255, 107, 0, 0.08);
-}
-
-.injury-num {
-  min-width: 28px;
-  height: 28px;
-  background: rgba(255, 107, 0, 0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-
-.fix-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.fix-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  padding: 0.9rem 1.1rem;
-  background: rgba(0, 200, 100, 0.04);
-  border: 1px solid rgba(0, 200, 100, 0.1);
-  border-radius: 10px;
-}
-
-.fix-check {
-  min-width: 22px;
-  height: 22px;
-  background: rgba(0, 200, 100, 0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  color: #00c864;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.anatomy-item {
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  text-align: center;
-}
-
-/* ════════════════════════════════════════════
-   JOINT PAGE — PREMIUM REDESIGN  (jp-*)
-════════════════════════════════════════════ */
-
-/* Root */
-.jp-root {
-  min-height: 100vh;
-  background: #0b0b0f;
-  color: #e8e8f0;
-  font-family: var(--font-body);
-}
-
-/* ── Top Nav ── */
-.jp-topnav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5%;
-  height: 64px;
-  background: rgba(11, 11, 15, 0.85);
+  padding: 0.6rem 3%;
+  background: rgba(6, 6, 8, 0.85);
   backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .jp-back-btn {
-  color: #9191a8;
-  text-decoration: none;
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: color 0.2s;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
-.jp-back-btn:hover { color: var(--accent); }
 
-.jp-nav-tag {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+.jp-back-btn:hover {
+  background: rgba(255, 107, 0, 0.12);
+  border-color: rgba(255, 107, 0, 0.3);
   color: var(--accent);
-  background: rgba(255, 94, 0, 0.12);
-  border: 1px solid rgba(255, 94, 0, 0.3);
-  border-radius: 50px;
-  padding: 0.25rem 0.9rem;
 }
 
-/* ── Hero ── */
+.jp-quicknav {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.15rem 0;
+}
+
+.jp-quicknav::-webkit-scrollbar { display: none; }
+
+.jp-quicknav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #888;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.jp-quicknav-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ccc;
+}
+
+.jp-quicknav-item.active {
+  background: rgba(255, 107, 0, 0.12);
+  border-color: rgba(255, 107, 0, 0.35);
+  color: var(--accent);
+}
+
+.jp-qn-emoji { font-size: 0.85rem; }
+.jp-qn-label { letter-spacing: 0.3px; }
+
+/* ── HERO ── */
 .jp-hero {
   position: relative;
-  padding: 7rem 8% 0;
-  background: linear-gradient(160deg, #0f0f18 0%, #0b0b0f 55%, #0d0907 100%);
+  padding: 5rem 6% 3rem;
   overflow: hidden;
 }
 
 .jp-hero-glow {
   position: absolute;
-  top: -80px; right: -80px;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 94, 0, 0.12) 0%, transparent 65%);
+  top: -30%;
+  right: -10%;
+  width: 65%;
+  height: 160%;
+  background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.1) 0%, rgba(255, 60, 0, 0.04) 40%, transparent 70%);
   pointer-events: none;
 }
 
-.jp-hero-inner {
+.jp-hero-content {
   position: relative;
-  z-index: 2;
-  max-width: 680px;
-  padding-bottom: 3.5rem;
+  max-width: 700px;
 }
 
-.jp-hero-pill {
+.jp-tag {
   display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(255, 94, 0, 0.1);
-  border: 1px solid rgba(255, 94, 0, 0.25);
+  padding: 0.3rem 0.85rem;
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(255, 60, 0, 0.08));
+  border: 1px solid rgba(255, 107, 0, 0.3);
   border-radius: 50px;
-  padding: 0.28rem 0.85rem;
-  margin-bottom: 1.2rem;
+  color: #ff8c3a;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
-.jp-hero-title {
+.jp-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-size: clamp(2.8rem, 6vw, 5rem);
   font-weight: 900;
-  line-height: 1.0;
   letter-spacing: -2px;
-  color: #ffffff;
-  margin-bottom: 1.25rem;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0 0 1.2rem;
 }
 
-.jp-hero-accent {
-  color: var(--accent);
+.jp-title-emoji {
+  margin-right: 0.3rem;
 }
 
-.jp-hero-desc {
+.jp-title-accent {
+  background: linear-gradient(135deg, #ff6b00, #ff9a44);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.jp-desc {
   font-size: 1rem;
   line-height: 1.75;
-  color: #9191a8;
-  max-width: 560px;
+  color: #a0a0a8;
+  max-width: 600px;
+  margin: 0;
 }
 
-/* Stats bar */
-.jp-stats-bar {
-  position: relative;
-  z-index: 2;
+/* ── STAT CARDS ── */
+.jp-stats-row {
   display: flex;
-  align-items: stretch;
-  background: rgba(255, 255, 255, 0.04);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px 16px 0 0;
-  backdrop-filter: blur(12px);
-  overflow: hidden;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
 }
 
-.jp-stat {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.3rem;
-  padding: 1.4rem 2.5rem;
+.jp-stat-card {
   flex: 1;
+  min-width: 140px;
+  padding: 1.5rem 1.2rem;
+  background: linear-gradient(145deg, rgba(255, 107, 0, 0.08), rgba(255, 107, 0, 0.02));
+  border: 1px solid rgba(255, 107, 0, 0.18);
+  border-radius: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
-.jp-stat-sep {
-  position: absolute;
-  left: 0; top: 20%; bottom: 20%;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.08);
+.jp-stat-card:hover {
+  border-color: rgba(255, 107, 0, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 107, 0, 0.1);
 }
 
 .jp-stat-val {
   font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 900;
-  color: var(--accent);
-  line-height: 1;
+  background: linear-gradient(135deg, #ffaa44, #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
 }
 
-.jp-stat-lbl {
+.jp-stat-label {
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 1px;
+  color: #888;
   text-transform: uppercase;
-  color: #66667a;
+  letter-spacing: 1.2px;
 }
 
-/* ── Sections Common ── */
-.jp-section {
-  padding: 5rem 8%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.jp-sec-inner {
-  max-width: 1100px;
+/* ── BODY CONTAINER ── */
+.jp-body {
+  max-width: 900px;
   margin: 0 auto;
+  padding: 1rem 6% 5rem;
 }
 
-.jp-sec-hdr {
+/* ── SECTION ── */
+.jp-section {
+  margin-bottom: 3.5rem;
+}
+
+.jp-section-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.jp-sec-icon {
+.jp-section-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
   flex-shrink: 0;
 }
 
-.jp-icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.25); }
-.jp-icon-red  { background: rgba(239, 68, 68, 0.13);  color: #f87171; border: 1px solid rgba(239, 68, 68, 0.25);  }
-.jp-icon-green{ background: rgba(34, 197, 94, 0.12);  color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.25);  }
-
-.jp-sec-eye {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #55556a;
-  margin: 0 0 0.2rem;
+.jp-icon-anatomy {
+  background: linear-gradient(135deg, rgba(255, 180, 50, 0.18), rgba(255, 140, 0, 0.08));
+  color: #ffb840;
+  border: 1px solid rgba(255, 180, 50, 0.25);
 }
 
-.jp-sec-title {
+.jp-icon-injury {
+  background: linear-gradient(135deg, rgba(255, 80, 80, 0.18), rgba(255, 50, 50, 0.08));
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 80, 80, 0.25);
+}
+
+.jp-icon-recovery {
+  background: linear-gradient(135deg, rgba(0, 210, 120, 0.18), rgba(0, 180, 100, 0.08));
+  color: #00d878;
+  border: 1px solid rgba(0, 210, 120, 0.25);
+}
+
+.jp-section-title {
   font-family: var(--font-display);
-  font-size: 1.6rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #ffffff;
-  letter-spacing: -0.5px;
+  color: #fff;
+  margin: 0 0 0.15rem;
+  letter-spacing: -0.3px;
+}
+
+.jp-section-sub {
+  font-size: 0.78rem;
+  color: #777;
   margin: 0;
 }
 
-/* ── Anatomy section ── */
-.jp-sec-anatomy {
-  background: #0e0e16;
-}
-
+/* ── ANATOMY CARDS ── */
 .jp-anatomy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
-.jp-ana-card {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+.jp-anatomy-card {
+  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
-  padding: 1.4rem 1.4rem 1.4rem 1.6rem;
-  overflow: hidden;
-  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
-.jp-ana-card:hover {
+.jp-anatomy-card:hover {
+  background: rgba(255, 180, 50, 0.05);
+  border-color: rgba(255, 180, 50, 0.2);
   transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
 }
 
-.jp-ana-stripe {
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 4px;
-  border-radius: 14px 0 0 14px;
-  opacity: 0.85;
-}
-
-.jp-ana-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
-  border: 1px solid;
-  flex-shrink: 0;
-}
-
-.jp-ana-name {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 0.35rem;
-  line-height: 1.3;
-}
-
-.jp-ana-desc {
-  font-size: 0.8rem;
-  color: #7a7a90;
-  line-height: 1.55;
-  margin: 0;
-}
-
-/* ── Injuries section ── */
-.jp-sec-injuries {
-  background: #0b0b0f;
-}
-
-.jp-inj-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.jp-inj-card {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  padding: 1.4rem 1.6rem;
-  transition: transform 0.2s, border-color 0.2s, background 0.2s;
-}
-
-.jp-inj-card:hover {
-  transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.12);
-}
-
-.jp-inj-num {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 900;
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
-  border: 1px solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  letter-spacing: -1px;
-}
-
-.jp-inj-body {
-  flex: 1;
-}
-
-.jp-inj-name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 0.35rem;
-}
-
-.jp-inj-desc {
-  font-size: 0.85rem;
-  color: #8080a0;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.jp-inj-badge {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  border: 1px solid;
-  border-radius: 50px;
-  padding: 0.25rem 0.75rem;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.jp-inj-dot {
-  width: 6px;
-  height: 6px;
+.jp-anatomy-icon-wrap {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
   border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 180, 50, 0.15), rgba(255, 107, 0, 0.08));
+  border: 1px solid rgba(255, 180, 50, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffb840;
 }
 
-/* ── Recovery section ── */
-.jp-sec-recovery {
-  background: #0c0e0c;
+.jp-anatomy-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #eee;
+  margin: 0 0 0.4rem;
 }
 
-.jp-rec-list {
+.jp-anatomy-desc {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #888;
+  margin: 0;
+}
+
+/* ── INJURY TIMELINE ── */
+.jp-injury-timeline {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
-.jp-rec-step {
+.jp-injury-card {
   display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
+  gap: 1.2rem;
+  align-items: stretch;
 }
 
-.jp-rec-timeline {
+.jp-injury-num-wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
+  padding-top: 0.15rem;
 }
 
-.jp-rec-circle {
-  width: 36px;
-  height: 36px;
+.jp-injury-num {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #ff5555, #cc3333);
   border-radius: 50%;
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.35);
-  color: #4ade80;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.85rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(255, 80, 80, 0.3);
 }
 
-.jp-rec-line {
-  width: 1px;
+.jp-injury-line {
+  width: 2px;
   flex: 1;
-  min-height: 32px;
-  background: linear-gradient(to bottom, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.05));
-  margin: 4px 0;
+  background: linear-gradient(to bottom, rgba(255, 80, 80, 0.4), rgba(255, 80, 80, 0.05));
+  margin: 0.3rem 0;
+  border-radius: 2px;
 }
 
-.jp-rec-body {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  background: rgba(34, 197, 94, 0.04);
-  border: 1px solid rgba(34, 197, 94, 0.1);
-  border-radius: 12px;
+.jp-injury-content {
+  flex: 1;
   padding: 1.1rem 1.4rem;
   margin-bottom: 0.75rem;
-  flex: 1;
-  transition: background 0.2s, border-color 0.2s;
+  background: linear-gradient(135deg, rgba(255, 80, 80, 0.06), rgba(255, 50, 50, 0.02));
+  border: 1px solid rgba(255, 80, 80, 0.12);
+  border-radius: 14px;
+  transition: all 0.25s ease;
 }
 
-.jp-rec-body:hover {
-  background: rgba(34, 197, 94, 0.07);
-  border-color: rgba(34, 197, 94, 0.2);
+.jp-injury-content:hover {
+  background: linear-gradient(135deg, rgba(255, 80, 80, 0.1), rgba(255, 50, 50, 0.04));
+  border-color: rgba(255, 80, 80, 0.25);
 }
 
-.jp-rec-tick {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
+.jp-injury-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.4rem;
 }
 
-.jp-rec-text {
-  font-size: 0.88rem;
-  color: #9090b0;
-  line-height: 1.65;
+.jp-injury-desc {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #999;
   margin: 0;
 }
 
-.jp-rec-text strong {
-  color: #ffffff;
+/* ── RECOVERY GRID ── */
+.jp-recovery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.jp-recovery-card {
+  padding: 1.4rem;
+  background: linear-gradient(145deg, rgba(0, 210, 120, 0.05), rgba(0, 180, 100, 0.01));
+  border: 1px solid rgba(0, 210, 120, 0.12);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+}
+
+.jp-recovery-card:hover {
+  background: linear-gradient(145deg, rgba(0, 210, 120, 0.1), rgba(0, 180, 100, 0.03));
+  border-color: rgba(0, 210, 120, 0.3);
+  transform: translateY(-3px);
+}
+
+.jp-recovery-step {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  background: rgba(0, 210, 120, 0.12);
+  border-radius: 6px;
+  font-size: 0.65rem;
   font-weight: 700;
-}
-
-/* ── CTA Footer ── */
-.jp-cta-wrap {
-  padding: 4rem 8%;
-  background: linear-gradient(135deg, #0d0710 0%, #0b0b0f 60%, #060a06 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  text-align: center;
-}
-
-.jp-cta-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
+  color: #00d878;
   text-transform: uppercase;
-  color: #55556a;
-  margin-bottom: 1.25rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.8rem;
 }
 
-.jp-cta-actions {
+.jp-recovery-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #eee;
+  margin: 0 0 0.5rem;
+}
+
+.jp-recovery-desc {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #888;
+  margin: 0;
+}
+
+/* ── FOOTER NAV ── */
+.jp-footer-nav {
+  margin-top: 2rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.jp-footer-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 1.2rem;
+}
+
+.jp-footer-joints {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.6rem;
+}
+
+.jp-footer-joint-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.jp-cta-primary {
-  background: var(--accent);
-  color: #fff;
-  font-size: 0.88rem;
-  font-weight: 700;
-  border-radius: 50px;
-  padding: 0.75rem 1.8rem;
+  gap: 0.5rem;
+  padding: 0.65rem 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
   text-decoration: none;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-}
-
-.jp-cta-primary:hover {
-  background: var(--accent-hover);
-  box-shadow: 0 6px 20px rgba(255, 94, 0, 0.4);
-  transform: translateY(-2px);
-}
-
-.jp-cta-ghost {
-  color: #7070a0;
-  font-size: 0.85rem;
+  color: #aaa;
+  font-size: 0.82rem;
   font-weight: 600;
-  text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  padding: 0.7rem 1.5rem;
-  transition: color 0.2s, border-color 0.2s;
+  transition: all 0.2s ease;
 }
 
-.jp-cta-ghost:hover {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.25);
+.jp-footer-joint-link span:last-of-type {
+  flex: 1;
 }
 
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .jp-anatomy-grid { grid-template-columns: 1fr 1fr; }
+.jp-footer-joint-link svg {
+  color: #555;
+  margin-left: auto;
 }
 
-@media (max-width: 600px) {
-  .jp-hero { padding: 6rem 5% 0; }
-  .jp-hero-title { font-size: 2.6rem; }
-  .jp-stats-bar { flex-direction: column; }
-  .jp-stat-sep { display: none; }
-  .jp-section { padding: 3.5rem 5%; }
-  .jp-anatomy-grid { grid-template-columns: 1fr; }
-  .jp-inj-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-  .jp-inj-badge { align-self: flex-start; }
+.jp-footer-joint-link:hover {
+  background: rgba(255, 107, 0, 0.08);
+  border-color: rgba(255, 107, 0, 0.25);
+  color: #fff;
+}
+
+.jp-footer-joint-link:hover svg {
+  color: var(--accent);
+}
+
+/* ── JOINT PAGE RESPONSIVE ── */
+@media (max-width: 768px) {
+  .jp-hero {
+    padding: 4rem 5% 2.5rem;
+  }
+
+  .jp-title {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    letter-spacing: -1px;
+  }
+
+  .jp-stats-row {
+    gap: 0.7rem;
+  }
+
+  .jp-stat-card {
+    min-width: 100px;
+    padding: 1rem;
+  }
+
+  .jp-stat-val {
+    font-size: 1.5rem;
+  }
+
+  .jp-body {
+    padding: 1rem 5% 4rem;
+  }
+
+  .jp-anatomy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jp-recovery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jp-footer-joints {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .jp-quicknav-item {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.68rem;
+  }
 }
 
 
+/* ──────────────── RESPONSIVE ──────────────── */
 @media (max-width: 768px) {
 
   .nav-links,

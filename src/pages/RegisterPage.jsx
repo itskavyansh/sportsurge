@@ -128,7 +128,7 @@ export default function RegisterPage() {
   if (done) return <SuccessScreen name={data.fullName} />;
 
   return (
-    <div className="min-h-screen py-24 px-[5%]" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 0%, rgba(25,15,55,0.5) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 10% 100%, rgba(70,25,5,0.3) 0%, transparent 55%), #0b0b0f' }}>
+    <div className="min-h-screen py-24 px-[5%]">
       <Link to="/" className="joint-back">Back to Home</Link>
 
       <div className="max-w-[620px] mx-auto">
@@ -377,7 +377,7 @@ function Field({ label, error, required, children }) {
 // ── Success Screen ────────────────────────────
 function SuccessScreen({ name }) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-[5%] py-24" style={{ background: 'radial-gradient(ellipse 70% 50% at 80% 0%, rgba(25,15,55,0.5) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 10% 100%, rgba(70,25,5,0.3) 0%, transparent 55%), #0b0b0f' }}>
+    <div className="min-h-screen flex items-center justify-center px-[5%] py-24">
       <div className="text-center max-w-[480px]">
         <div className="mx-auto mb-6 w-20 h-20 rounded-full bg-[rgba(0,200,100,0.1)] border border-[rgba(0,200,100,0.3)] flex items-center justify-center">
           <CheckCircle size={40} className="text-[#00c864]" strokeWidth={1.5} />
