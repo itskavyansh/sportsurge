@@ -1,14 +1,32 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+// All positions are % of the canvas (x = from left, y = from top)
+// Frame windows chosen from direct inspection of the 240-frame sequence:
+//   0–25   → full body front, face + all joints visible
+//   25–65  → zooming into chest/upper body front
+//   65–105 → rotating to back — shoulders dominant
+//   105–155 → pure back view — upper back
+//   155–185 → side view — hips, elbow, wrist at waist
+//   185–215 → lower body side → knee rises into frame
+//   215–239 → ankle/foot dominant
 const HOTSPOTS = [
-  { id: 'hs-nape',      x: 52, y: 16, frames: [80, 120], label: 'Nape',       sub: 'Cervical Spine',       joint: 'nape',      side: 'right' },
-  { id: 'hs-shoulder',  x: [55,81], y: [80,25], frames: [50, 70], label: 'Shoulder', sub: 'Glenohumeral Joint', joint: 'shoulder',  side: 'right' },
-  { id: 'hs-elbow',     x: 60, y: 15, frames: [185, 220], label: 'Elbow',     sub: 'Humeroulnar Joint',    joint: 'elbow',     side: 'right' },
-  { id: 'hs-wrist',     x: 55, y: 65, frames: [185, 220], label: 'Wrist',     sub: 'Radiocarpal Joint',    joint: 'wrist',     side: 'right' },
-  { id: 'hs-lowerback', x: 50, y: 58, frames: [155, 188], label: 'Lower Back',sub: 'Lumbar Spine',         joint: 'lowerback', side: 'left'  },
-  { id: 'hs-knee',      x: 59, y: 73, frames: [188, 218], label: 'Knee',      sub: 'Tibiofemoral Joint',   joint: 'knee',      side: 'right' },
-  { id: 'hs-ankle',     x: 57, y: 88, frames: [218, 239], label: 'Ankle',     sub: 'Talocrural Joint',     joint: 'ankle',     side: 'right' },
+  // TMJ: jaw line, right side — visible in early full-body frames
+  { id: 'hs-tmj',      x: 53, y: 10, frames: [5,  30],  label: 'TMJ',        sub: 'Temporomandibular Joint', joint: 'tmj',      side: 'right' },
+  // Neck: nape/cervical spine — back-view frames, neck centered at top
+  { id: 'hs-neck',     x: 51, y: 7,  frames: [80, 130], label: 'Neck',       sub: 'Cervical Spine',          joint: 'neck',     side: 'left'  },
+  // Shoulder: top of left deltoid — front view zoom
+  { id: 'hs-shoulder', x: 63, y: 25, frames: [30, 65],  label: 'Shoulder',   sub: 'Glenohumeral Joint',     joint: 'shoulder', side: 'right' },
+  // Elbow: left elbow visible in side view
+  { id: 'hs-elbow',    x: 30, y: 45, frames: [155,185], label: 'Elbow',      sub: 'Humeroulnar Joint',      joint: 'elbow',    side: 'left'  },
+  // Wrist: hand/wrist at hip in side view
+  { id: 'hs-wrist',    x: 68, y: 55, frames: [155,195], label: 'Wrist',      sub: 'Radiocarpal Joint',      joint: 'wrist',    side: 'right' },
+  // Hip: hip joint visible in side/lower-body frames
+  { id: 'hs-hip',      x: 62, y: 35, frames: [185,215], label: 'Hip',        sub: 'Acetabulofemoral Joint', joint: 'hip',      side: 'right' },
+  // Knee: raised knee dominant in lower-body frames
+  { id: 'hs-knee',     x: 40, y: 50, frames: [195,225], label: 'Knee',       sub: 'Tibiofemoral Joint',     joint: 'knee',     side: 'left'  },
+  // Ankle: foot/ankle in final frames
+  { id: 'hs-ankle',    x: 42, y: 78, frames: [215,239], label: 'Ankle',      sub: 'Talocrural Joint',       joint: 'ankle',    side: 'left'  },
 ];
 
 export default function HeroCanvas() {
@@ -162,7 +180,11 @@ export default function HeroCanvas() {
             className={`hotspot side-${hs.side}`}
             ref={(el) => { hsRefs.current[hs.id] = el; }}
           >
-            <div className="hotspot-dot"></div>
+            {/* 3D glass orb */}
+            <div className="hotspot-orb">
+              <div className="hotspot-orb-inner"></div>
+              <div className="hotspot-orb-spec"></div>
+            </div>
             <div className="hotspot-line"></div>
             <Link className="hotspot-card" to={`/joint/${hs.joint}`}>
               <h4>{hs.label}</h4>

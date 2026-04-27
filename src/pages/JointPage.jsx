@@ -3,26 +3,48 @@ import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { Bone, Dumbbell, Link as LinkIcon, AlertTriangle, HeartPulse, Check } from 'lucide-react';
 
 const DATA = {
-  nape: {
-    name: 'Nape', tag: 'Cervical Spine',
-    desc: 'The nape is the back of the neck, housing the cervical vertebrae that protect the spinal cord and allow head movement. Critical for contact sports and overhead athletes.',
-    stats: [{ val: '7', label: 'Vertebrae' }, { val: 'C1–C7', label: 'Segments' }, { val: '70°', label: 'Rotation Range' }],
+  tmj: {
+    name: 'TMJ', tag: 'Temporomandibular Joint',
+    desc: 'The temporomandibular joint connects the jaw to the skull and is the only bilateral joint in the body that functions as a single unit. Critical for chewing, speaking, and absorbing impact in contact sports.',
+    stats: [{ val: '2', label: 'Bilateral Joints' }, { val: '4', label: 'Chewing Muscles' }, { val: '7mm', label: 'Avg. Disc Thickness' }],
     anatomy: [
-      { icon: Bone, name: 'Vertebrae C1–C7', desc: 'Bones forming the cervical column' },
-      { icon: Dumbbell, name: 'Trapezius', desc: 'Supports neck and shoulder movement' },
-      { icon: LinkIcon, name: 'Intervertebral Discs', desc: 'Cushion between each vertebra' },
+      { icon: Bone, name: 'Mandibular Condyle', desc: 'The rounded end of the jaw that articulates with the temporal bone' },
+      { icon: LinkIcon, name: 'Articular Disc', desc: 'Fibrocartilage disc cushioning the joint during movement' },
+      { icon: Dumbbell, name: 'Masseter & Pterygoids', desc: 'Primary muscles driving jaw opening, closing, and lateral movement' },
     ],
     injuries: [
-      { name: 'Cervical Strain (Whiplash)', desc: 'Sudden hyperextension of the neck, common in contact sports and collisions.' },
-      { name: 'Herniated Cervical Disc', desc: 'Disc material pushes out and compresses nerves, causing pain down the arm.' },
-      { name: 'Cervical Stenosis', desc: 'Narrowing of the spinal canal, often from repetitive overhead loading.' },
+      { name: 'TMJ Disc Displacement', desc: 'Articular disc slips out of position causing clicking, locking, and jaw deviation on opening.' },
+      { name: 'Bruxism (Jaw Clenching)', desc: 'Unconscious grinding or clenching under athletic stress, accelerating cartilage wear.' },
+      { name: 'Mandibular Fracture', desc: 'Direct trauma to the jaw in contact sports; second most common facial fracture in athletes.' },
     ],
     fixes: [
-      '<strong>RICE Protocol</strong> — Rest, Ice (20 min on/off), Compress, Elevate immediately after injury.',
-      '<strong>Neck Mobility Drills</strong> — Gentle chin tucks and lateral flexion 2× daily to restore range of motion.',
-      '<strong>Strengthening</strong> — Isometric resistance exercises (4 directions) to stabilize cervical muscles.',
-      '<strong>Physiotherapy</strong> — Manual therapy and traction for disc-related issues; 4–8 week program.',
-      '<strong>Posture Correction</strong> — Ergonomic adjustments and chin-tuck habit to prevent recurrence.',
+      '<strong>Soft Diet + Rest</strong> — Avoid hard/chewy foods for 2–4 weeks to offload the joint acutely.',
+      '<strong>Jaw Mobility Exercises</strong> — Controlled mouth opening with a tongue-up position to recapture displaced disc.',
+      '<strong>Occlusal Splint</strong> — Custom night guard reduces bruxism load and allows joint decompression.',
+      '<strong>Physiotherapy (Manual Therapy)</strong> — Intra-oral massage of pterygoid muscles and joint mobilisation techniques.',
+      '<strong>Mouthguard for Contact Sports</strong> — Fitted gumshield distributes impact forces and prevents disc trauma during competition.',
+    ],
+  },
+  neck: {
+    name: 'Neck', tag: 'Cervical Spine',
+    desc: 'The cervical spine is a stack of seven vertebrae connecting the skull to the thorax, protecting the spinal cord while allowing the widest range of head motion in the body. A critical structure for all contact and overhead sports.',
+    stats: [{ val: '7', label: 'Vertebrae (C1–C7)' }, { val: '70°', label: 'Rotation Each Way' }, { val: '45°', label: 'Flexion / Extension' }],
+    anatomy: [
+      { icon: Bone, name: 'C1–C7 Vertebrae', desc: 'Atlas (C1) and Axis (C2) enable head nodding and rotation' },
+      { icon: LinkIcon, name: 'Intervertebral Discs', desc: 'Shock-absorbing fibrocartilage pads between each vertebra' },
+      { icon: Dumbbell, name: 'Trapezius & SCM', desc: 'Sternocleidomastoid and trapezius stabilise and move the head' },
+    ],
+    injuries: [
+      { name: 'Cervical Strain (Whiplash)', desc: 'Sudden hyperextension-flexion of the neck from impact; causes pain, stiffness, and headaches.' },
+      { name: 'Herniated Cervical Disc', desc: 'Disc nucleus protrudes and compresses nerve roots, causing radiating arm pain (cervical radiculopathy).' },
+      { name: 'Burner / Stinger', desc: 'Traction or compression of the brachial plexus in contact sport; electric-shock sensation down one arm.' },
+    ],
+    fixes: [
+      '<strong>RICE Protocol</strong> — Rest, Ice 20 min on/off, gentle Compression, and limit loading in the first 72 h.',
+      '<strong>Chin Tucks</strong> — 10 reps × 3 sets daily; restores cervical lordosis and retrains deep neck flexors.',
+      '<strong>Isometric Strengthening</strong> — Resistance in all 4 directions (flex, extend, lateral) to stabilise the cervical muscles.',
+      '<strong>Manual Therapy / Traction</strong> — Physiotherapist-guided cervical traction for disc-related radiculopathy; 4–8 week programme.',
+      '<strong>Postural Correction</strong> — Ergonomic screen height, chin-tuck habit, and scapular retraction drills to offload the cervical spine long-term.',
     ],
   },
   shoulder: {
@@ -89,6 +111,28 @@ const DATA = {
       '<strong>Strengthening</strong> — Wrist curls and rice bucket exercises for grip rehabilitation.',
       '<strong>Ultrasound Therapy</strong> — Therapeutic ultrasound reduces inflammation in tendon sheaths.',
       '<strong>Surgical Consult</strong> — Scaphoid non-unions or complete TFCC tears may require arthroscopic repair.',
+    ],
+  },
+  hip: {
+    name: 'Hip', tag: 'Acetabulofemoral Joint',
+    desc: 'The hip is the body\'s largest ball-and-socket joint, transmitting forces between the torso and legs. It supports full body weight during every stride, kick, and jump — making it the engine of athletic power.',
+    stats: [{ val: '120°', label: 'Flexion Range' }, { val: '250%', label: 'Body Weight Force' }, { val: '3', label: 'Axes of Motion' }],
+    anatomy: [
+      { icon: Bone, name: 'Femoral Head & Acetabulum', desc: 'Ball-and-socket pairing providing stability and multiaxial movement' },
+      { icon: LinkIcon, name: 'Labrum', desc: 'Fibrocartilage ring deepening the socket and sealing synovial fluid' },
+      { icon: Dumbbell, name: 'Gluteal Muscles & Hip Flexors', desc: 'Primary movers for running, jumping, and power generation' },
+    ],
+    injuries: [
+      { name: 'Hip Labral Tear', desc: 'Tearing of the fibrocartilage ring from femoroacetabular impingement or pivoting; causes deep groin pain and clicking.' },
+      { name: 'Hip Flexor Strain', desc: 'Iliopsoas or rectus femoris tear from explosive sprinting or kicking; common in football and track athletes.' },
+      { name: 'Greater Trochanteric Bursitis', desc: 'Inflammation of the lateral hip bursa from repetitive hip abductor loading or direct impact.' },
+    ],
+    fixes: [
+      '<strong>Hip Flexor Stretching</strong> — Kneeling lunge stretch held 45 s, 3× daily to reduce anterior impingement.',
+      '<strong>Glute Activation</strong> — Clamshells, side-lying abduction and single-leg bridges to restore hip abductor control.',
+      '<strong>Hip Mobility Drills</strong> — 90/90 hip stretch and pigeon pose to improve internal/external rotation range.',
+      '<strong>Load Management</strong> — Reduce sprint volume and avoid deep squatting for 4–6 weeks acute post-injury.',
+      '<strong>Surgical Review</strong> — Labral tears with impingement may require hip arthroscopy for labral refixation; 6–9 month return to sport.',
     ],
   },
   lowerback: {
@@ -165,8 +209,8 @@ export default function JointPage() {
   const heroRef = useRef(null);
 
   // Support both /joint/knee and /joint?joint=knee
-  const key = jointId || searchParams.get('joint') || 'nape';
-  const d = DATA[key] || DATA.nape;
+  const key = jointId || searchParams.get('joint') || 'tmj';
+  const d = DATA[key] || DATA.tmj;
 
   useEffect(() => {
     document.title = d.name + ' Joint Guide — Sport Surge Pro';

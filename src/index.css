@@ -747,45 +747,92 @@
   pointer-events: all;
 }
 
-.hotspot-dot {
+/* 3D glass orb */
+.hotspot-orb {
   position: absolute;
   top: 0;
   left: 0;
-  width: 12px;
-  height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.3);
   z-index: 2;
+  /* depth glow beneath */
+  filter: drop-shadow(0 4px 8px rgba(255, 94, 0, 0.6));
 }
 
-.hotspot-dot::before,
-.hotspot-dot::after {
+.hotspot-orb::before {
   content: '';
   position: absolute;
-  inset: -4px;
+  inset: 0;
   border-radius: 50%;
-  border: 1.5px solid var(--accent);
-  animation: hotspot-pulse 2s ease-out infinite;
+  /* outer pulse ring */
+  border: 1.5px solid rgba(255, 140, 0, 0.5);
+  animation: orb-pulse 2.4s ease-out infinite;
 }
 
-.hotspot-dot::after {
-  animation-delay: 0.8s;
+.hotspot-orb::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  animation: orb-pulse 2.4s ease-out infinite;
+  animation-delay: 0.9s;
 }
 
-@keyframes hotspot-pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(2.8);
-  }
+/* Main sphere body - simulates a 3D lit sphere */
+.hotspot-orb-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 35% 35%,
+    rgba(255, 200, 120, 0.9) 0%,
+    rgba(255, 100, 0, 0.95) 40%,
+    rgba(180, 50, 0, 1) 75%,
+    rgba(100, 20, 0, 1) 100%
+  );
+  box-shadow:
+    inset -3px -3px 6px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 4px rgba(255, 200, 100, 0.3),
+    0 0 12px rgba(255, 94, 0, 0.7),
+    0 2px 6px rgba(0, 0, 0, 0.6);
 }
 
+/* Specular highlight - the glassy shine spot */
+.hotspot-orb-spec {
+  position: absolute;
+  top: 18%;
+  left: 22%;
+  width: 35%;
+  height: 28%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 40% 30%,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  transform: rotate(-25deg);
+  pointer-events: none;
+}
+
+@keyframes orb-pulse {
+  0%   { opacity: 0.8; transform: scale(1); }
+  100% { opacity: 0;   transform: scale(2.5); }
+}
+
+/* Hover: intensify the glow */
+.hotspot:hover .hotspot-orb-inner {
+  box-shadow:
+    inset -3px -3px 6px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 4px rgba(255, 200, 100, 0.3),
+    0 0 20px rgba(255, 120, 0, 0.95),
+    0 0 35px rgba(255, 80, 0, 0.5),
+    0 2px 6px rgba(0, 0, 0, 0.6);
+  transform: scale(1.15);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
 .hotspot-line {
   position: absolute;
   top: 0;
