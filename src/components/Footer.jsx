@@ -1,4 +1,4 @@
-import { Globe, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 export default function Footer() {
   const scrollTo = (e, id) => {
@@ -10,6 +10,7 @@ export default function Footer() {
 
   return (
     <footer id="footer" className="footer-wrap">
+      <div className="features-grid" />
       {/* Big wordmark */}
       <div className="footer-wordmark" aria-hidden="true">SURGE</div>
 

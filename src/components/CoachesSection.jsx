@@ -13,6 +13,8 @@ export default function CoachesSection() {
 
   return (
     <section id="coaches" className="relative overflow-hidden" style={{ background: '#0e0e12' }}>
+      <div className="features-grid" />
+      <div className="section-wordmark coaches-wordmark" aria-hidden="true">Coaches</div>
       <div className="text-center max-w-[600px] mx-auto mb-14 reveal relative z-10" ref={headerRef}>
         <div className="section-label justify-center before:hidden">Expert Mentors</div>
         <h2 className="section-title">Meet Our <span>Coaches</span></h2>
@@ -23,7 +25,7 @@ export default function CoachesSection() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-[1100px] mx-auto relative z-10">
         {COACHES.map((c, i) => (
-          <CoachCard key={c.name} coach={c} delay={i * 0.1} />
+          <CoachCard key={c.name} coach={c} delay={i * 0.0001} />
         ))}
       </div>
     </section>

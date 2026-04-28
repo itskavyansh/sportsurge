@@ -31,15 +31,17 @@ export default function AboutSection() {
 
   return (
     <section id="about" className="about-section relative overflow-hidden">
-      {/* Diagonal lime stripe */}
-      <div className="about-stripe" />
+      {/* Animated lime scan line */}
+      <div className="stats-scanline" />
+
+      <div className="section-wordmark about-wordmark" aria-hidden="true">About</div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center max-w-[1200px] mx-auto relative z-10">
 
         {/* Text side */}
         <div className="reveal" ref={textRef}>
           <div className="section-label">Who We Are</div>
-          <h2 className="section-title">About <span>Sport Surge</span></h2>
+          <h2 className="section-title">Who <span>We Are</span></h2>
           <p className="text-[--text-secondary] text-[0.95rem] leading-[1.9] mb-6">
             India's first comprehensive sportsperson registration portal — built to bridge the gap between raw talent and real opportunity. From grassroots to national glory.
           </p>
@@ -69,11 +71,12 @@ export default function AboutSection() {
           <div className="about-badge">
             <div className="about-badge-icon"><span className="text-xl leading-none font-black">IN</span></div>
             <div>
-              <h4 className="text-[0.85rem] font-bold text-[--text-primary]">India's First Portal</h4>
-              <p className="text-[0.72rem] text-[--text-secondary] m-0">Grassroots to Elite Level</p>
+              <h4 className="text-[0.85rem] font-bold text-[--text-primary]">Dark. Fast. Athlete-first.</h4>
+              <p className="text-[0.72rem] text-[--text-secondary] m-0">Built for measurable performance</p>
             </div>
           </div>
         </div>
+        
       </div>
     </section>
   );

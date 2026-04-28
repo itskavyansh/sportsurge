@@ -15,12 +15,14 @@ export default function FeaturesSection() {
 
   return (
     <section id="features" className="relative overflow-hidden" style={{ background: '#0e0e12' }}>
+      <div className="section-wordmark features-wordmark" aria-hidden="true">Plans</div>
+      
       {/* Animated grid lines */}
       <div className="features-grid" />
-
+    
       <div className="max-w-[700px] mx-auto mb-14 reveal text-center relative z-10" ref={headerRef}>
-        <div className="section-label justify-center before:hidden">What We Offer</div>
-        <h2 className="section-title">Everything an <span>Athlete</span> Needs</h2>
+        <div className="section-label justify-center before:hidden">Training Programs</div>
+        <h2 className="section-title">Performance <span>Plans</span></h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-px max-w-[1100px] mx-auto relative z-10" style={{ background: 'rgba(255,255,255,0.05)' }}>
@@ -37,7 +39,7 @@ function FeatureCard({ feature, index }) {
   const Icon = feature.icon;
   return (
     <div className="feature-card-new reveal" ref={ref} style={{ animationDelay: `${index * 0.08}s` }}>
-      <div className="feature-num">{String(index + 1).padStart(2, '0')}</div>
+      <div className="feature-num ">{String(index + 1).padStart(2, '0')}</div>
       <div className="feature-icon-new">
         <Icon size={26} strokeWidth={1.6} color="var(--accent)" />
       </div>

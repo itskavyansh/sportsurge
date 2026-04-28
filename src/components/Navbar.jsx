@@ -73,7 +73,7 @@ export default function Navbar() {
     <div ref={navRef}>
       <nav id="navbar" className={cn || undefined}>
         <a href="#" className="nav-logo" onClick={(e) => scrollTo(e, '#')}>
-          SPORT <span>SURGE</span>
+          <span className="nav-logo-sport">SPORT</span> <span>SURGE</span>
         </a>
 
         <ul className="nav-links">

@@ -157,11 +157,11 @@ export default function HeroCanvas() {
       <div className="hero-sticky">
         <canvas id="hero-canvas" ref={canvasRef}></canvas>
         <div className="hero-overlay"></div>
-
         <div className="hero-content" ref={heroContentRef}>
+          <div className="hero-kicker">Train Like Pros</div>
           <div className="hero-label">India's #1 Sports Portal</div>
-          <p className="hero-subtitle">The Lifestyle That Keeps You</p>
-          <h1 className="hero-title">ENERGIZED</h1>
+          <p className="hero-subtitle">Sports. Science. Performance.</p>
+          <h1 className="hero-title">ATHLETES</h1>
           <p className="hero-desc">
             Sport Surge blends form, focus, and fire — made to move with you, keep you cool under pressure, and elevate every session from grassroots to national glory.
           </p>
@@ -170,6 +170,7 @@ export default function HeroCanvas() {
             <a href="#about" className="btn-secondary" onClick={(e) => { e.preventDefault(); document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }); }}>Read More</a>
           </div>
         </div>
+        <div className="hero-wordmark" aria-hidden="true">SURGE</div>
 
         <div className="scroll-hint">Scroll</div>
 

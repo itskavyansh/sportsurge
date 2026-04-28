@@ -1,5 +1,6 @@
 import { Mail, ArrowRight } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import useReveal from '../hooks/useReveal';
 
 // Marquee ticker items
@@ -8,9 +9,14 @@ const TICKER = ['CRICKET', 'FOOTBALL', 'BASKETBALL', 'BADMINTON', 'KABADDI', 'VO
 export default function EventsSection() {
   const headerRef = useReveal();
   const bodyRef   = useReveal();
+  const ctaRef    = useReveal();
 
   return (
     <section id="events" className="relative overflow-hidden" style={{ background: '#13131a', padding: 0 }}>
+      <div className="section-wordmark events-wordmark" aria-hidden="true">News</div>
+      {/* Animated lime scan line */}
+      <div className="stats-scanline" />
+
       {/* Marquee ticker */}
       <div className="events-ticker">
         <div className="events-ticker-track">
@@ -41,6 +47,16 @@ export default function EventsSection() {
             <NotifyForm />
           </div>
           <div className="events-card-accent" />
+        </div>
+
+        <div className="events-register-wrap reveal" ref={ctaRef}>
+          <div className="events-register-cta">
+            <div>
+              <h4 className="events-register-title">Register to Become a Member</h4>
+              <p className="events-register-sub">Join Sport Surge and unlock events, coaching access, and verified athlete opportunities.</p>
+            </div>
+            <Link to="/register" className="btn-register">Register Now</Link>
+          </div>
         </div>
       </div>
     </section>

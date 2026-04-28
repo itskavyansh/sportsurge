@@ -39,12 +39,13 @@ export default function StatsSection() {
 
   return (
     <section id="stats" ref={sectionRef} className="relative overflow-hidden" style={{ background: '#13131a', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <div className="section-wordmark stats-wordmark" aria-hidden="true">Services</div>
       {/* Animated lime scan line */}
       <div className="stats-scanline" />
 
       <div className="text-center max-w-[700px] mx-auto mb-16 reveal" ref={topRef}>
         <div className="section-label justify-center">By The Numbers</div>
-        <h2 className="section-title">The <span>Surge</span> Effect</h2>
+        <h2 className="section-title">Our <span>Services</span></h2>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-px max-w-[1100px] mx-auto" style={{ background: 'rgba(255,255,255,0.06)' }}>

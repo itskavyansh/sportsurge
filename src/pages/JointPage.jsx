@@ -194,6 +194,17 @@ const JOINT_NAV = [
   { key: 'ankle', label: 'Ankle' },
 ];
 
+const WORDMARKS = {
+  tmj: 'Jaw',
+  neck: 'Neck',
+  shoulder: 'Shoulder',
+  elbow: 'Elbow',
+  wrist: 'Wrist',
+  hip: 'Hip',
+  knee: 'Knee',
+  ankle: 'Ankle',
+};
+
 /* ═══════════════════════ COMPONENT ═══════════════════════ */
 export default function JointPage() {
   const { jointId } = useParams();
@@ -202,6 +213,7 @@ export default function JointPage() {
 
   const key = jointId || searchParams.get('joint') || 'tmj';
   const d = DATA[key] || DATA.tmj;
+  const wordmark = WORDMARKS[key] || 'Joint';
 
   useEffect(() => {
     document.title = d.name + ' — Joint Guide | Sport Surge Pro';
@@ -221,6 +233,9 @@ export default function JointPage() {
 
   return (
     <div className="jp" ref={pageRef}>
+      <div className="jp-grid" aria-hidden="true" />
+      <div className="jp-scanline" aria-hidden="true" />
+      <div className="jp-wordmark" aria-hidden="true">{wordmark}</div>
 
       {/* ─── Sticky top bar ─── */}
       <header className="jp-bar">
@@ -236,6 +251,7 @@ export default function JointPage() {
 
       {/* ─── Hero / Overview ─── */}
       <section className="jp-hero">
+        <div className="section-label">Joint Breakdown</div>
         <span className="jp-hero-tag">{d.tag}</span>
         <h1 className="jp-hero-title">{d.name}</h1>
         <p className="jp-hero-desc">{d.desc}</p>

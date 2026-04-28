@@ -162,6 +162,8 @@ export default function RegisterPage() {
       <div className="absolute top-0 left-0 w-full h-0.5 pointer-events-none"
         style={{ background: 'var(--accent)' }} />
 
+      <div className="features-grid" />  
+
       <Link to="/" className="inline-flex items-center gap-2 text-[--text-muted] hover:text-[--accent] text-sm font-medium transition-colors mb-8 relative uppercase tracking-widest text-xs">
         ← Back to Home
       </Link>

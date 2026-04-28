@@ -28,6 +28,7 @@ function LoginScreen({ pw, setPw, onLogin, error }) {
   return (
     <div className="min-h-screen flex items-center justify-center px-[5%] relative overflow-hidden"
       style={{ background: 'var(--bg-primary)' }}>
+        
       <div className="absolute top-0 left-0 w-full h-0.5 pointer-events-none"
         style={{ background: 'var(--accent)' }} />
       <div className="w-full max-w-[380px] relative">
