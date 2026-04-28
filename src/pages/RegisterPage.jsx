@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { ChevronRight, ChevronLeft, CheckCircle, Loader2, User, School, Users } from 'lucide-react';
+import { animate, createTimeline, stagger } from 'animejs';
 
 const SPORTS = [
   'Cricket', 'Football', 'Basketball', 'Badminton', 'Kabaddi',
@@ -59,6 +60,16 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [data, setData] = useState(INITIAL);
+
+  // Animate card in on step change
+  useEffect(() => {
+    animate('.reg-card', {
+      opacity:    [0, 1],
+      translateY: [24, 0],
+      duration:   500,
+      ease:       'outExpo',
+    });
+  }, [step]);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -127,6 +138,23 @@ export default function RegisterPage() {
 
   if (done) return <SuccessScreen name={data.fullName} />;
 
+  // Page entry animation
+  useEffect(() => {
+    createTimeline()
+      .add('.reg-page-header', {
+        opacity:    [0, 1],
+        translateY: [-30, 0],
+        duration:   700,
+        ease:       'outExpo',
+      }, 0)
+      .add('.reg-steps-bar', {
+        opacity:    [0, 1],
+        translateY: [20, 0],
+        duration:   500,
+        ease:       'outQuad',
+      }, 200);
+  }, []);
+
   return (
     <div className="min-h-screen py-24 px-[5%] relative overflow-hidden"
       style={{ background: 'var(--bg-primary)' }}>
@@ -140,7 +168,7 @@ export default function RegisterPage() {
 
       <div className="max-w-[620px] mx-auto relative">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-10 reg-page-header">
           <div className="section-label justify-center before:hidden mb-3">Join Sport Surge</div>
           <h1 className="font-[var(--font-display)] text-[clamp(2rem,5vw,3.2rem)] font-black text-[--text-primary] tracking-tight leading-tight">
             Athlete <span className="text-[--accent]">Registration</span>
@@ -151,7 +179,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Progress */}
-        <div className="flex items-center gap-0 mb-10">
+        <div className="flex items-center gap-0 mb-10 reg-steps-bar">
           {STEPS.map((s, i) => {
             const Icon = s.icon;
             const active = i === step;

@@ -469,8 +469,7 @@
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
+  /* Reveal is now handled by anime.js IntersectionObserver — no CSS opacity needed */
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
@@ -1565,6 +1564,29 @@ select.reg-input option {
   .hero-ctas { flex-direction: column; }
   .btn-primary, .btn-secondary { text-align: center; justify-content: center; }
   .hero-title { font-size: clamp(2.8rem, 12vw, 4rem); }
+}
+
+/* ──────────────── ANIME.JS INITIAL STATES ──────────────── */
+/* Initial states are set by JS in animations.js — NOT here.
+   This prevents the double-hidden flash where CSS hides elements
+   before JS has a chance to animate them in. */
+
+/* Scroll progress bar */
+#scroll-progress {
+  transform-origin: left center;
+}
+
+/* Magnetic button — needs position for translate */
+.btn-primary,
+.btn-register,
+.reg-btn-primary {
+  position: relative;
+  will-change: transform;
+}
+
+/* Section title — remove overflow:hidden that was clipping clip-path wipe */
+.section-title {
+  overflow: visible;
 }
 
 /* ══════════════════════════════════════════════

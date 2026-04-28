@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
 import { Bone, Dumbbell, Link as LinkIcon, AlertTriangle, HeartPulse, ArrowLeft, ChevronRight } from 'lucide-react';
+import { initJointPageAnim } from '../lib/jointAnimations';
 
 /* ═══════════════════════ DATA ═══════════════════════ */
 const DATA = {
@@ -210,8 +211,10 @@ export default function JointPage() {
     if (page) {
       page.style.opacity = '0';
       requestAnimationFrame(() => {
-        page.style.transition = 'opacity 0.5s ease';
+        page.style.transition = 'opacity 0.4s ease';
         page.style.opacity = '1';
+        // Run animations after page fades in
+        setTimeout(() => initJointPageAnim(), 80);
       });
     }
   }, [key, d.name]);
