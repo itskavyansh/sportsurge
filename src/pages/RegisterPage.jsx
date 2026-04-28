@@ -128,14 +128,21 @@ export default function RegisterPage() {
   if (done) return <SuccessScreen name={data.fullName} />;
 
   return (
-    <div className="min-h-screen py-24 px-[5%]">
-      <Link to="/" className="joint-back">Back to Home</Link>
+    <div className="min-h-screen py-24 px-[5%] relative overflow-hidden"
+      style={{ background: 'var(--bg-primary)' }}>
+      {/* Accent top bar */}
+      <div className="absolute top-0 left-0 w-full h-0.5 pointer-events-none"
+        style={{ background: 'var(--accent)' }} />
 
-      <div className="max-w-[620px] mx-auto">
+      <Link to="/" className="inline-flex items-center gap-2 text-[--text-muted] hover:text-[--accent] text-sm font-medium transition-colors mb-8 relative uppercase tracking-widest text-xs">
+        ← Back to Home
+      </Link>
+
+      <div className="max-w-[620px] mx-auto relative">
         {/* Header */}
         <div className="text-center mb-10">
           <div className="section-label justify-center before:hidden mb-3">Join Sport Surge</div>
-          <h1 className="font-[var(--font-display)] text-[clamp(2rem,5vw,3.2rem)] font-black text-white tracking-tight leading-tight">
+          <h1 className="font-[var(--font-display)] text-[clamp(2rem,5vw,3.2rem)] font-black text-[--text-primary] tracking-tight leading-tight">
             Athlete <span className="text-[--accent]">Registration</span>
           </h1>
           <p className="text-[--text-secondary] text-sm mt-3">
@@ -154,14 +161,14 @@ export default function RegisterPage() {
                 <div className={`flex flex-col items-center gap-1.5 ${i < STEPS.length - 1 ? 'flex-1' : ''}`}>
                   <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-500
                     ${done   ? 'bg-[--accent] border-[--accent]' :
-                      active ? 'border-[--accent] bg-[rgba(255,94,0,0.1)]' :
+                      active ? 'border-[--accent] bg-[--accent-dim]' :
                                'border-[--border] bg-[--bg-card]'}`}>
                     {done
                       ? <CheckCircle size={18} className="text-white" />
                       : <Icon size={16} className={active ? 'text-[--accent]' : 'text-[--text-muted]'} />}
                   </div>
                   <span className={`text-[0.65rem] font-semibold tracking-wider uppercase
-                    ${active ? 'text-[--accent]' : done ? 'text-white' : 'text-[--text-muted]'}`}>
+                    ${active ? 'text-[--accent]' : done ? 'text-[--text-primary]' : 'text-[--text-muted]'}`}>
                     {s.label}
                   </span>
                 </div>
@@ -377,16 +384,20 @@ function Field({ label, error, required, children }) {
 // ── Success Screen ────────────────────────────
 function SuccessScreen({ name }) {
   return (
-    <div className="min-h-screen flex items-center justify-center px-[5%] py-24">
-      <div className="text-center max-w-[480px]">
-        <div className="mx-auto mb-6 w-20 h-20 rounded-full bg-[rgba(0,200,100,0.1)] border border-[rgba(0,200,100,0.3)] flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center px-[5%] py-24 relative overflow-hidden"
+      style={{ background: 'var(--bg-primary)' }}>
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'rgba(0,229,160,0.03)' }} />
+      <div className="text-center max-w-[480px] relative">
+        <div className="mx-auto mb-6 w-20 h-20 rounded-full flex items-center justify-center"
+          style={{ background: 'rgba(0,200,100,0.08)', border: '1px solid rgba(0,200,100,0.25)' }}>
           <CheckCircle size={40} className="text-[#00c864]" strokeWidth={1.5} />
         </div>
-        <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,5vw,2.8rem)] font-black text-white mb-3 tracking-tight">
+        <h1 className="font-[var(--font-display)] text-[clamp(1.8rem,5vw,2.8rem)] font-black text-[--text-primary] mb-3 tracking-tight">
           You're <span className="text-[#00c864]">Registered!</span>
         </h1>
         <p className="text-[--text-secondary] leading-[1.8] mb-8">
-          Welcome to Sport Surge, <strong className="text-white">{name}</strong>! Your registration has been received. We'll be in touch soon.
+          Welcome to Sport Surge, <strong className="text-[--text-primary]">{name}</strong>! Your registration has been received. We'll be in touch soon.
         </p>
         <Link to="/" className="btn-primary inline-flex">← Back to Home</Link>
       </div>

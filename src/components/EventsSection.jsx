@@ -1,55 +1,81 @@
-import { CalendarClock } from 'lucide-react';
+import { Mail, ArrowRight } from 'lucide-react';
 import { useRef, useState } from 'react';
 import useReveal from '../hooks/useReveal';
 
+// Marquee ticker items
+const TICKER = ['CRICKET', 'FOOTBALL', 'BASKETBALL', 'BADMINTON', 'KABADDI', 'VOLLEYBALL', 'HOCKEY', 'ATHLETICS', 'SWIMMING', 'BOXING', 'TENNIS', 'WRESTLING'];
+
 export default function EventsSection() {
   const headerRef = useReveal();
-  const bodyRef = useReveal();
+  const bodyRef   = useReveal();
 
   return (
-    <section id="events" className="bg-[#0a0a0a] text-center">
-      <div className="max-w-[600px] mx-auto mb-12 reveal" ref={headerRef}>
-        <div className="section-label justify-center before:hidden">What's On</div>
-        <h2 className="section-title">Upcoming <span>Events</span></h2>
+    <section id="events" className="relative overflow-hidden" style={{ background: '#13131a', padding: 0 }}>
+      {/* Marquee ticker */}
+      <div className="events-ticker">
+        <div className="events-ticker-track">
+          {[...TICKER, ...TICKER].map((t, i) => (
+            <span key={i} className="events-ticker-item">
+              <span className="events-ticker-dot" />
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
 
-      <div className="events-empty reveal" ref={bodyRef}>
-        <div className="mx-auto mb-5 w-16 h-16 rounded-2xl bg-[rgba(255,107,0,0.08)] border border-[rgba(255,107,0,0.15)] flex items-center justify-center">
-          <CalendarClock size={30} strokeWidth={1.5} color="var(--accent)" />
+      <div style={{ padding: '6rem 5%' }}>
+        <div className="max-w-[600px] mx-auto mb-12 reveal text-center" ref={headerRef}>
+          <div className="section-label justify-center before:hidden">What's On</div>
+          <h2 className="section-title">Upcoming <span>Events</span></h2>
         </div>
-        <h3 className="font-[var(--font-display)] text-[1.4rem] font-bold text-white mb-2.5">Stay Tuned!</h3>
-        <p className="text-[--text-secondary] text-[0.9rem] leading-[1.7] mb-6">
-          We're curating an incredible lineup of sports events, summits, and meetups. Be the first to know when they go live.
-        </p>
-        <NotifyForm />
+
+        <div className="events-card reveal" ref={bodyRef}>
+          <div className="events-card-inner">
+            <div className="events-icon-wrap">
+              <Mail size={32} strokeWidth={1.5} color="#000" />
+            </div>
+            <div className="events-text">
+              <h3 className="events-heading">Stay in the Loop</h3>
+              <p className="events-sub">We're curating an incredible lineup of sports events, summits, and meetups. Drop your email and be first to know.</p>
+            </div>
+            <NotifyForm />
+          </div>
+          <div className="events-card-accent" />
+        </div>
       </div>
     </section>
   );
 }
 
 function NotifyForm() {
-  const inputRef = useRef(null);
-  const [submitted, setSubmitted] = useState(false);
+  const inputRef  = useRef(null);
+  const [done, setDone] = useState(false);
+  const [err,  setErr]  = useState(false);
 
-  const handleNotify = () => {
-    const email = inputRef.current.value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      inputRef.current.style.borderColor = '#ff4444';
-      inputRef.current.placeholder = 'Enter a valid email';
-      setTimeout(() => { inputRef.current.style.borderColor = ''; inputRef.current.placeholder = 'Your email address'; }, 2000);
-      return;
-    }
-    setSubmitted(true);
+  const submit = () => {
+    const v = inputRef.current?.value.trim();
+    if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { setErr(true); setTimeout(() => setErr(false), 2000); return; }
+    setDone(true);
   };
 
-  if (submitted) {
-    return <p className="text-[--accent] font-semibold text-[0.9rem]">✓ You're on the list!</p>;
-  }
+  if (done) return (
+    <div className="events-success">
+      <span className="events-success-dot" />
+      You're on the list!
+    </div>
+  );
 
   return (
-    <div className="notify-form">
-      <input ref={inputRef} type="email" placeholder="Your email address" />
-      <button type="button" onClick={handleNotify}>Notify Me</button>
+    <div className="events-form">
+      <input
+        ref={inputRef}
+        type="email"
+        placeholder="your@email.com"
+        className={`events-input${err ? ' events-input-err' : ''}`}
+      />
+      <button className="events-btn" onClick={submit}>
+        <ArrowRight size={18} />
+      </button>
     </div>
   );
 }

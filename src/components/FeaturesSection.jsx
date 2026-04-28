@@ -2,46 +2,48 @@ import { Building2, Route, Briefcase, ShieldCheck, CalendarDays, Tag } from 'luc
 import useReveal from '../hooks/useReveal';
 
 const FEATURES = [
-  { icon: Building2, title: 'Virtual HQ on Roam', desc: 'Your central hub for live events, networking, and collaboration. Stay connected with the sport community 24/7 from anywhere in India.' },
-  { icon: Route, title: 'Virtual Pathways & Programming', desc: "Curated education in business, performance, leadership, and personal development tailored for the modern athlete's journey." },
-  { icon: Briefcase, title: 'Career & Business Resources', desc: 'Opportunities, accelerators, job placement partners, and practical tools designed specifically for growth in the sports ecosystem.' },
-  { icon: ShieldCheck, title: 'Professional Services', desc: 'Trusted providers in branding, finance, mental performance, leadership coaching, and much more to fuel your career.' },
-  { icon: CalendarDays, title: 'In-Person & Virtual Events', desc: 'From business summits to local meetups, we bring the sports community together year-round with purpose-driven events.' },
-  { icon: Tag, title: 'Exclusive Product Discounts', desc: 'Access exclusive deals on premium sports gear, health products, nutrition supplements, and custom athlete services.' },
+  { icon: Building2,    title: 'Virtual HQ',         desc: 'Your central hub for live events, networking, and collaboration 24/7.' },
+  { icon: Route,        title: 'Pathways',           desc: 'Curated education in business, performance, and leadership.' },
+  { icon: Briefcase,    title: 'Career Resources',   desc: 'Opportunities, accelerators, and job placement partners.' },
+  { icon: ShieldCheck,  title: 'Pro Services',       desc: 'Trusted providers in branding, finance, and mental performance.' },
+  { icon: CalendarDays, title: 'Events',             desc: 'Business summits to local meetups — year-round community.' },
+  { icon: Tag,          title: 'Product Discounts',  desc: 'Exclusive deals on premium sports gear and nutrition.' },
 ];
 
 export default function FeaturesSection() {
   const headerRef = useReveal();
 
   return (
-    <section id="features" className="bg-black text-center">
-      <div className="max-w-[700px] mx-auto mb-14 reveal" ref={headerRef}>
+    <section id="features" className="relative overflow-hidden" style={{ background: '#0e0e12' }}>
+      {/* Animated grid lines */}
+      <div className="features-grid" />
+
+      <div className="max-w-[700px] mx-auto mb-14 reveal text-center relative z-10" ref={headerRef}>
         <div className="section-label justify-center before:hidden">What We Offer</div>
-        <h2 className="section-title">Everything an <span>Athlete Needs</span></h2>
-        <p className="text-[--text-secondary] text-[0.95rem] leading-[1.8]">
-          From networking and education to career resources and exclusive deals — Sport Surge is your complete sports ecosystem.
-        </p>
+        <h2 className="section-title">Everything an <span>Athlete</span> Needs</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-px max-w-[1100px] mx-auto relative z-10" style={{ background: 'rgba(255,255,255,0.05)' }}>
         {FEATURES.map((f, i) => (
-          <FeatureCard key={f.title} feature={f} delay={i * 0.1} />
+          <FeatureCard key={f.title} feature={f} index={i} />
         ))}
       </div>
     </section>
   );
 }
 
-function FeatureCard({ feature, delay }) {
+function FeatureCard({ feature, index }) {
   const ref = useReveal();
   const Icon = feature.icon;
   return (
-    <div className="feature-card reveal" ref={ref} style={{ transitionDelay: `${delay}s` }}>
-      <div className="feature-icon">
-        <Icon size={24} strokeWidth={1.8} color="var(--accent)" />
+    <div className="feature-card-new reveal" ref={ref} style={{ animationDelay: `${index * 0.08}s` }}>
+      <div className="feature-num">{String(index + 1).padStart(2, '0')}</div>
+      <div className="feature-icon-new">
+        <Icon size={26} strokeWidth={1.6} color="var(--accent)" />
       </div>
-      <h3 className="font-[var(--font-display)] text-base font-bold text-white mb-2.5 tracking-tight">{feature.title}</h3>
-      <p className="text-[0.85rem] text-[--text-secondary] leading-relaxed">{feature.desc}</p>
+      <h3 className="feature-title-new">{feature.title}</h3>
+      <p className="feature-desc-new">{feature.desc}</p>
+      <div className="feature-hover-bar" />
     </div>
   );
 }

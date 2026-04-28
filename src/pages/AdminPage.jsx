@@ -26,13 +26,17 @@ export default function AdminPage() {
 function LoginScreen({ pw, setPw, onLogin, error }) {
   const handleKey = (e) => { if (e.key === 'Enter') onLogin(); };
   return (
-    <div className="min-h-screen flex items-center justify-center px-[5%]">
-      <div className="w-full max-w-[380px]">
+    <div className="min-h-screen flex items-center justify-center px-[5%] relative overflow-hidden"
+      style={{ background: 'var(--bg-primary)' }}>
+      <div className="absolute top-0 left-0 w-full h-0.5 pointer-events-none"
+        style={{ background: 'var(--accent)' }} />
+      <div className="w-full max-w-[380px] relative">
         <div className="text-center mb-8">
-          <div className="mx-auto mb-4 w-14 h-14 rounded-2xl bg-[rgba(255,94,0,0.1)] border border-[rgba(255,94,0,0.2)] flex items-center justify-center">
+          <div className="mx-auto mb-4 w-14 h-14 flex items-center justify-center"
+            style={{ background: 'rgba(200,240,0,0.08)', border: '1px solid rgba(200,240,0,0.2)' }}>
             <Users size={26} color="var(--accent)" />
           </div>
-          <h1 className="font-[var(--font-display)] text-2xl font-bold text-white">Admin Access</h1>
+          <h1 className="font-[var(--font-display)] text-2xl font-bold text-[--text-primary]">Admin Access</h1>
           <p className="text-[--text-muted] text-sm mt-1">Sport Surge Registration Dashboard</p>
         </div>
         <div className="reg-card">
@@ -55,7 +59,7 @@ function LoginScreen({ pw, setPw, onLogin, error }) {
             </button>
           </div>
         </div>
-        <Link to="/" className="block text-center text-[0.78rem] text-[--text-muted] mt-4 hover:text-white transition-colors">
+        <Link to="/" className="block text-center text-[0.75rem] text-[--text-muted] mt-4 hover:text-[--accent] transition-colors uppercase tracking-widest">
           ← Back to Site
         </Link>
       </div>
@@ -138,7 +142,7 @@ function Dashboard({ onLogout }) {
   );
 
   return (
-    <div className="min-h-screen px-[3%] py-8">
+    <div className="min-h-screen px-[3%] py-8" style={{ background: 'var(--bg-primary)' }}>
       {/* Header */}
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>

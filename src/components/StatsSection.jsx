@@ -1,45 +1,63 @@
-import { Target, ClipboardList, Users, Rocket } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import useReveal from '../hooks/useReveal';
 
 const STATS = [
-  { icon: Target, title: 'Our Goal', desc: 'Train harder, play smarter, perform stronger — the Sport Surge philosophy in action.' },
-  { icon: ClipboardList, title: 'Complete Programs', desc: 'End-to-end conditioning, drills, and analytics designed for measurable performance gains.' },
-  { icon: Users, title: 'Coaches & Sessions', desc: 'Elite mentors with personalized sessions crafted to your sport and skill level.' },
-  { icon: Rocket, title: 'Start Confident', desc: 'Clear plans, measurable gains, and real results from your very first session.' },
+  { num: 500, suffix: '+', label: 'Athletes Registered', sub: 'and growing every week' },
+  { num: 12,  suffix: '+', label: 'Sports Covered',      sub: 'from cricket to gymnastics' },
+  { num: 8,   suffix: '',  label: 'Expert Coaches',       sub: 'certified professionals' },
+  { num: 3,   suffix: 'x', label: 'Faster Scouting',     sub: 'vs traditional methods' },
 ];
 
+function CountUp({ target, suffix, active }) {
+  const [val, setVal] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let start = 0;
+    const duration = 1800;
+    const step = 16;
+    const inc = target / (duration / step);
+    const t = setInterval(() => {
+      start += inc;
+      if (start >= target) { setVal(target); clearInterval(t); }
+      else setVal(Math.floor(start));
+    }, step);
+    return () => clearInterval(t);
+  }, [active, target]);
+  return <>{val}{suffix}</>;
+}
+
 export default function StatsSection() {
+  const sectionRef = useRef(null);
+  const [active, setActive] = useState(false);
   const topRef = useReveal();
 
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setActive(true); obs.disconnect(); } }, { threshold: 0.3 });
+    if (sectionRef.current) obs.observe(sectionRef.current);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <section id="stats" className="bg-[#0a0a0a] border-t border-b border-[--border]">
-      <div className="text-center max-w-[800px] mx-auto mb-16 reveal" ref={topRef}>
-        <div className="section-label justify-center">Our Pillars</div>
-        <h2 className="section-title text-center">Train Harder. Play <span>Smarter</span>.</h2>
-        <p className="text-[--text-secondary] text-base leading-[1.8] mt-4">
-          Our dedicated team blends data-driven plans with real-world experience to elevate your strength, strategy, and confidence on and off the field.
-        </p>
+    <section id="stats" ref={sectionRef} className="relative overflow-hidden" style={{ background: '#13131a', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      {/* Animated lime scan line */}
+      <div className="stats-scanline" />
+
+      <div className="text-center max-w-[700px] mx-auto mb-16 reveal" ref={topRef}>
+        <div className="section-label justify-center">By The Numbers</div>
+        <h2 className="section-title">The <span>Surge</span> Effect</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1100px] mx-auto">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-px max-w-[1100px] mx-auto" style={{ background: 'rgba(255,255,255,0.06)' }}>
         {STATS.map((s, i) => (
-          <StatCard key={s.title} stat={s} delay={i * 0.1} />
+          <div key={s.label} className="stat-card-new" style={{ animationDelay: `${i * 0.15}s` }}>
+            <div className="stat-num">
+              <CountUp target={s.num} suffix={s.suffix} active={active} />
+            </div>
+            <div className="stat-label-main">{s.label}</div>
+            <div className="stat-label-sub">{s.sub}</div>
+          </div>
         ))}
       </div>
     </section>
-  );
-}
-
-function StatCard({ stat, delay }) {
-  const ref = useReveal();
-  const Icon = stat.icon;
-  return (
-    <div className="stat-card reveal" ref={ref} style={{ transitionDelay: `${delay}s` }}>
-      <div className="mx-auto mb-4 w-12 h-12 rounded-xl bg-[rgba(255,107,0,0.1)] flex items-center justify-center">
-        <Icon size={22} strokeWidth={1.8} color="var(--accent)" />
-      </div>
-      <h3 className="font-[var(--font-display)] text-[0.9rem] font-bold text-[--accent] mb-2.5 uppercase tracking-wider">{stat.title}</h3>
-      <p className="text-[0.82rem] text-[--text-secondary] leading-relaxed">{stat.desc}</p>
-    </div>
   );
 }
