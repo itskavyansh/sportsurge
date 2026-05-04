@@ -30,6 +30,7 @@ const HOTSPOTS = [
 ];
 
 export default function HeroCanvas() {
+  const REGISTER_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdlt1cwXmt_4camDSgeyqedlf1woqgAgkqdpJBlgOmC5QLCtw/viewform?usp=publish-editor';
   const canvasRef = useRef(null);
   const heroContentRef = useRef(null);
   const hsRefs = useRef({});
@@ -166,7 +167,7 @@ export default function HeroCanvas() {
             Sport Surge blends form, focus, and fire — made to move with you, keep you cool under pressure, and elevate every session from grassroots to national glory.
           </p>
           <div className="hero-ctas">
-            <Link to="/register" className="btn-primary">Register Now →</Link>
+            <a href={REGISTER_FORM_URL} className="btn-primary">Register Now →</a>
             <a href="#about" className="btn-secondary" onClick={(e) => { e.preventDefault(); document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }); }}>Read More</a>
           </div>
         </div>

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
+  const REGISTER_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdlt1cwXmt_4camDSgeyqedlf1woqgAgkqdpJBlgOmC5QLCtw/viewform?usp=publish-editor';
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -92,7 +93,7 @@ export default function Navbar() {
 
         <div className="nav-actions" id="navActions">
           <Link to="/register" className="btn-login">Log In</Link>
-          <Link to="/register" className="btn-register">Register Now</Link>
+          <a href={REGISTER_FORM_URL} className="btn-register">Register Now</a>
         </div>
 
         <div
@@ -110,7 +111,7 @@ export default function Navbar() {
             {l.label}
           </a>
         ))}
-        <Link to="/register" className="btn-register" style={{ textAlign: 'center' }}>Register Now</Link>
+        <a href={REGISTER_FORM_URL} className="btn-register" style={{ textAlign: 'center' }}>Register Now</a>
       </div>
     </div>
   );

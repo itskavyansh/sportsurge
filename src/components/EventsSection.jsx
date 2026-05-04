@@ -1,12 +1,12 @@
 import { Mail, ArrowRight } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import useReveal from '../hooks/useReveal';
 
 // Marquee ticker items
 const TICKER = ['CRICKET', 'FOOTBALL', 'BASKETBALL', 'BADMINTON', 'KABADDI', 'VOLLEYBALL', 'HOCKEY', 'ATHLETICS', 'SWIMMING', 'BOXING', 'TENNIS', 'WRESTLING'];
 
 export default function EventsSection() {
+  const REGISTER_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdlt1cwXmt_4camDSgeyqedlf1woqgAgkqdpJBlgOmC5QLCtw/viewform?usp=publish-editor';
   const headerRef = useReveal();
   const bodyRef   = useReveal();
   const ctaRef    = useReveal();
@@ -55,7 +55,7 @@ export default function EventsSection() {
               <h4 className="events-register-title">Register to Become a Member</h4>
               <p className="events-register-sub">Join Sport Surge and unlock events, coaching access, and verified athlete opportunities.</p>
             </div>
-            <Link to="/register" className="btn-register">Register Now</Link>
+            <a href={REGISTER_FORM_URL} className="btn-register">Register Now</a>
           </div>
         </div>
       </div>
