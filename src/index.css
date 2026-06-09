@@ -425,6 +425,7 @@
   font-size: 0.6rem;
   letter-spacing: 3px;
   text-transform: uppercase;
+  pointer-events: none;
 }
 
 .scroll-hint::after {
@@ -777,12 +778,36 @@ footer, #footer {
   transform: scale(0.7);
   transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
               transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
+  color: inherit;
+  -webkit-tap-highlight-color: rgba(200, 240, 0, 0.12);
+  touch-action: manipulation;
 }
 
 .hotspot.visible {
   opacity: 1;
   transform: scale(1);
-  pointer-events: all;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* Invisible hit area — gives iOS Safari a real tap target (parent has no in-flow size) */
+.hotspot-touch {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  min-height: 44px;
+  z-index: 10;
+}
+
+.hotspot.side-right .hotspot-touch {
+  left: -22px;
+  right: -230px;
+}
+
+.hotspot.side-left .hotspot-touch {
+  right: -22px;
+  left: -230px;
 }
 
 /* Lime green orb */
@@ -866,6 +891,7 @@ footer, #footer {
 .hotspot-line {
   position: absolute;
   top: 0;
+  z-index: 11;
   height: 1px;
   width: 50px;
   background: linear-gradient(to right, var(--accent), rgba(200, 240, 0, 0.15));
@@ -876,6 +902,7 @@ footer, #footer {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 12;
   background: rgba(10, 10, 10, 0.92);
   border: 1px solid rgba(200, 240, 0, 0.4);
   border-radius: 0;
@@ -2025,6 +2052,10 @@ select.reg-input option {
 }
 
 /* ── EVENTS SECTION ── */
+.events-body {
+  padding: 6rem 5%;
+}
+
 .events-ticker {
   background: var(--accent);
   overflow: hidden;
@@ -2664,6 +2695,465 @@ a.footer-contact-val:hover { color: var(--text-primary); }
   }
   .hero-wordmark {
     font-size: clamp(3.2rem, 20vw, 6rem);
+  }
+}
+
+/* ============================================================
+   FULL RESPONSIVE — phones, tablets, iOS safe areas
+   ============================================================ */
+
+/* Safe-area insets for notched iOS devices */
+@supports (padding: env(safe-area-inset-top)) {
+  #navbar {
+    padding-left: max(5%, env(safe-area-inset-left));
+    padding-right: max(5%, env(safe-area-inset-right));
+    height: calc(64px + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .mobile-menu {
+    top: calc(64px + env(safe-area-inset-top));
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+
+  .hero-content {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .scroll-hint {
+    bottom: calc(2rem + env(safe-area-inset-bottom));
+  }
+
+  .jp-bar {
+    padding-top: calc(0.55rem + env(safe-area-inset-top));
+  }
+}
+
+/* Tablet landscape & small laptops */
+@media (max-width: 1024px) {
+  .hero-content {
+    max-width: 460px;
+  }
+
+  .hotspot-card {
+    max-width: 200px;
+  }
+
+  .about-section {
+    padding: 5rem 5%;
+  }
+
+  .footer-top {
+    gap: 2.5rem;
+  }
+}
+
+/* Tablet portrait & large phones */
+@media (max-width: 768px) {
+  .hero-content {
+    bottom: 1.75rem;
+    left: 5%;
+    right: 5%;
+    max-width: none;
+  }
+
+  .hero-desc {
+    max-width: none;
+  }
+
+  .hero-kicker {
+    letter-spacing: 3px;
+    font-size: 0.85rem;
+  }
+
+  .hero-subtitle {
+    letter-spacing: 3px;
+  }
+
+  .scroll-hint {
+    bottom: 1.25rem;
+    font-size: 0.55rem;
+  }
+
+  .scroll-hint::after {
+    height: 28px;
+  }
+
+  /* Hotspot cards: prevent viewport overflow on narrow screens */
+  .hotspot-card {
+    max-width: min(200px, 42vw);
+    white-space: normal;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .hotspot.side-right .hotspot-touch {
+    right: -200px;
+  }
+
+  .hotspot.side-left .hotspot-touch {
+    left: -200px;
+  }
+
+  .hotspot.side-right .hotspot-card {
+    left: 42px;
+  }
+
+  .hotspot.side-left .hotspot-card {
+    right: 42px;
+  }
+
+  .hotspot-line {
+    width: 42px;
+  }
+
+  .about-section {
+    padding: 4rem 5%;
+  }
+
+  .about-image-wrap img {
+    height: min(280px, 55vw);
+  }
+
+  .about-badge {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .feature-card-new {
+    padding: 2rem 1.5rem;
+  }
+
+  .stat-card-new {
+    padding: 2.25rem 1.25rem;
+  }
+
+  .coach-img-wrap {
+    height: 220px;
+  }
+
+  .events-form {
+    width: 100%;
+  }
+
+  .notify-form {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .notify-form button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .events-body {
+    padding: 4rem 5%;
+  }
+
+  .events-notify-wrap {
+    margin-top: 3rem;
+  }
+
+  .reg-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .reg-phone-prefix {
+    font-size: 0.8rem;
+    padding: 0 0.6rem;
+  }
+
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  section {
+    padding: 3.5rem 4%;
+  }
+
+  .about-section {
+    padding: 3.5rem 4%;
+  }
+
+  #navbar {
+    height: 56px;
+    padding-left: max(4%, env(safe-area-inset-left, 0px));
+    padding-right: max(4%, env(safe-area-inset-right, 0px));
+  }
+
+  .nav-logo {
+    font-size: 1.35rem;
+    letter-spacing: 1px;
+  }
+
+  .mobile-menu {
+    top: 56px;
+    padding: 1.5rem 4%;
+  }
+
+  .hero-content {
+    bottom: 1.25rem;
+    left: 4%;
+    right: 4%;
+  }
+
+  .hero-label {
+    letter-spacing: 2px;
+    font-size: 0.65rem;
+  }
+
+  .hero-label::before {
+    width: 20px;
+  }
+
+  .hero-title {
+    letter-spacing: 1px;
+  }
+
+  .hero-desc {
+    font-size: 0.8rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-ctas {
+    gap: 0.6rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.65rem 1.25rem;
+    width: 100%;
+  }
+
+  .hero-wordmark {
+    right: 1%;
+    font-size: clamp(2.8rem, 22vw, 5rem);
+    letter-spacing: 3px;
+  }
+
+  .scroll-hint {
+    display: none;
+  }
+
+  .hotspot-orb {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hotspot-card h4 {
+    font-size: 0.75rem;
+  }
+
+  .hotspot-card span {
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+  }
+
+  .hotspot.side-right .hotspot-card {
+    left: 36px;
+  }
+
+  .hotspot.side-left .hotspot-card {
+    right: 36px;
+  }
+
+  .hotspot-line {
+    width: 36px;
+  }
+
+  .section-title {
+    letter-spacing: 1px;
+  }
+
+  .section-label {
+    letter-spacing: 2.5px;
+    font-size: 0.62rem;
+  }
+
+  .stat-num {
+    font-size: clamp(2.4rem, 10vw, 3.2rem);
+  }
+
+  .stat-label-main {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+  }
+
+  .events-card-inner {
+    padding: 2rem 1.5rem;
+  }
+
+  .events-heading {
+    font-size: 1.4rem;
+  }
+
+  .events-register-title {
+    font-size: 1.15rem;
+  }
+
+  .news-card-body {
+    padding: 1rem;
+  }
+
+  .footer-inner {
+    padding: 3rem 4% 1.5rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .reg-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .reg-step-title {
+    font-size: 1rem;
+  }
+
+  .reg-radio {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.75rem;
+  }
+
+  .jp-hero {
+    padding: 3rem 4% 1.75rem;
+  }
+
+  .jp-sect {
+    padding: 1.75rem 4%;
+  }
+
+  .jp-foot {
+    padding: 1.5rem 4% 3rem;
+  }
+
+  .events-body {
+    padding: 3.5rem 4%;
+  }
+
+  .jp-anat,
+  .jp-inj,
+  .jp-fix {
+    padding: 1rem;
+  }
+}
+
+/* Very narrow phones */
+@media (max-width: 360px) {
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 14vw, 3.2rem);
+  }
+
+  .hotspot-card {
+    max-width: min(170px, 50vw);
+  }
+
+  .stat-card-new {
+    padding: 1.75rem 0.85rem;
+  }
+}
+
+/* Touch devices: active states mirror hover without changing desktop design */
+@media (hover: none) and (pointer: coarse) {
+  .hotspot-card:active {
+    background: rgba(200, 240, 0, 0.08);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.04);
+  }
+
+  .hotspot.side-right .hotspot-card:active::before {
+    border-right-color: var(--accent);
+  }
+
+  .hotspot.side-left .hotspot-card:active::before {
+    border-left-color: var(--accent);
+  }
+
+  .hotspot:active .hotspot-orb-inner {
+    box-shadow:
+      inset -2px -2px 4px rgba(0, 0, 0, 0.4),
+      inset 2px 2px 4px rgba(255, 255, 200, 0.3),
+      0 0 20px rgba(200, 240, 0, 1),
+      0 0 36px rgba(200, 240, 0, 0.4),
+      0 2px 6px rgba(0, 0, 0, 0.5);
+    transform: scale(1.15);
+  }
+
+  .btn-primary:active,
+  .btn-register:active,
+  .reg-btn-primary:active {
+    background: #d4ff00;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Landscape phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-content {
+    bottom: 0.75rem;
+    max-width: 380px;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vh, 3rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-desc {
+    display: none;
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: auto;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+  }
+
+  .scroll-hint {
+    display: none;
+  }
+
+  #hero {
+    height: 400vh;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hotspot-orb::before,
+  .hotspot-orb::after,
+  .scroll-hint::after,
+  .events-ticker-track,
+  .jp-scanline,
+  .stats-scanline {
+    animation: none;
+  }
+
+  .hotspot {
+    transition: opacity 0.2s ease;
   }
 }
 

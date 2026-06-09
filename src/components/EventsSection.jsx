@@ -42,7 +42,7 @@ export default function EventsSection() {
         </div>
       </div>
 
-      <div style={{ padding: '6rem 5%' }}>
+      <div className="events-body">
         <div className="max-w-[700px] mx-auto mb-12 reveal text-center" ref={headerRef}>
           <div className="section-label justify-center before:hidden">India Sports</div>
           <h2 className="section-title">Latest <span>News</span></h2>

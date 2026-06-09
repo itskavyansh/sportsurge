@@ -176,23 +176,25 @@ export default function HeroCanvas() {
         <div className="scroll-hint">Scroll</div>
 
         {HOTSPOTS.map((hs) => (
-          <div
+          <Link
             key={hs.id}
             id={hs.id}
+            to={`/joint/${hs.joint}`}
             className={`hotspot side-${hs.side}`}
             ref={(el) => { hsRefs.current[hs.id] = el; }}
+            aria-label={`${hs.label} — ${hs.sub}`}
           >
-            {/* 3D glass orb */}
+            <span className="hotspot-touch" aria-hidden="true" />
             <div className="hotspot-orb">
               <div className="hotspot-orb-inner"></div>
               <div className="hotspot-orb-spec"></div>
             </div>
             <div className="hotspot-line"></div>
-            <Link className="hotspot-card" to={`/joint/${hs.joint}`}>
+            <div className="hotspot-card">
               <h4>{hs.label}</h4>
               <span>{hs.sub}</span>
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
