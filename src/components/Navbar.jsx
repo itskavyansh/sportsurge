@@ -63,7 +63,7 @@ export default function Navbar() {
     { href: '#', label: 'Home' },
     { href: '#about', label: 'About Us' },
     { href: '#features', label: 'Members' },
-    { href: '#events', label: 'Events' },
+    { href: '#events', label: 'News' },
     { href: '#coaches', label: 'Coaches' },
     { href: '#footer', label: 'Contact Us' },
   ];
